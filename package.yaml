@@ -13,6 +13,12 @@ extra-source-files:
 
 dependencies:
   - base >= 4.7 && < 5
+  - linear
+  - bookkeeper
+  - lens
+  - aeson
+  - type-level-sets
+  - text
 
 executables:
   avix:
