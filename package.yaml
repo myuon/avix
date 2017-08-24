@@ -12,26 +12,30 @@ extra-source-files:
 - README.md
 
 dependencies:
-  - base >= 4.7 && < 5
-  - linear
-  - extensible
-  - lens
-  - text
+- base >= 4.7 && < 5
+- linear
+- extensible
+- lens
+- text
 
 default-extensions:
-  - TemplateHaskell
-  - DataKinds
-  - KindSignatures
-  - TypeOperators
-  - TypeFamilies
-  - MultiParamTypeClasses
-  - FunctionalDependencies
-  - FlexibleInstances
-  - LambdaCase
-  - OverloadedLabels
-  - TypeApplications
-  - PolyKinds
-  - FlexibleContexts
+- TemplateHaskell
+- DataKinds
+- KindSignatures
+- TypeOperators
+- TypeFamilies
+- MultiParamTypeClasses
+- FunctionalDependencies
+- FlexibleInstances
+- LambdaCase
+- OverloadedLabels
+- TypeApplications
+- PolyKinds
+- FlexibleContexts
+
+ghc-options:
+- -Wunused-imports
+- -Wunused-local-binds
 
 executables:
   avix:

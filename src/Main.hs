@@ -1,9 +1,7 @@
 module Main where
 
 import Data.Extensible
-import Data.Extensible.HList
 import Data.Proxy
-import Data.Type.Equality
 import Control.Lens
 import Linear.V2
 import GHC.TypeLits
