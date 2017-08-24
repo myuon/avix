@@ -18,6 +18,7 @@ dependencies:
 - lens
 - text
 - intervals
+- text-format
 
 default-extensions:
 - Strict
@@ -36,6 +37,7 @@ default-extensions:
 - PolyKinds
 - FlexibleContexts
 - OverloadedStrings
+- ViewPatterns
 
 ghc-options:
 - -Wunused-imports

@@ -4,24 +4,29 @@ import Data.Extensible
 import Data.Proxy
 import Data.Word
 import Data.Maybe
+import Data.Text.Format (format)
+import qualified Data.Text.Lazy as T
+import qualified Data.Text.Lazy.IO as T
 import Control.Lens hiding ((...))
 import Numeric.Natural
 import Numeric.Interval
 import Numeric.Lens (hex)
-import qualified Data.Text as T
 import Linear.V2
 import GHC.TypeLits
 
-toPairs :: Forall (KeyValue KnownSymbol ((~) String)) xs => Record xs -> [(String, String)]
-toPairs r = henumerateFor (Proxy @(KeyValue KnownSymbol ((~) String))) r (\mem -> (:) (symbolVal (proxyAssocKey mem) , r ^. itemAt mem)) []
+toPairs :: Forall (KeyValue KnownSymbol ((~) T.Text)) xs => Record xs -> [(T.Text, T.Text)]
+toPairs r = henumerateFor (Proxy @(KeyValue KnownSymbol ((~) T.Text))) r (\mem -> (:) (T.pack $ symbolVal (proxyAssocKey mem) , r ^. itemAt mem)) []
 
-unlinePairs :: [(String, String)] -> String
-unlinePairs = unlines . fmap (\(k,v) -> stripUS k ++ "=" ++ v) where
-  stripUS ('_' : k) = k
+unlinePairs :: [(T.Text, T.Text)] -> T.Text
+unlinePairs = T.unlines . fmap (\(k,v) -> T.concat [stripUS k, "=", v]) where
+  stripUS (T.uncons -> Just ('_', k)) = k
   stripUS k = k
 
+showt :: (Show a) => a -> T.Text
+showt = T.pack . show
+
 class ExoFormat t where
-  eformat :: Int -> t -> String
+  eformat :: Int -> t -> T.Text
   def :: t
 
 type ExeditR =
@@ -39,14 +44,14 @@ makeWrapped ''Exedit
 
 instance ExoFormat Exedit where
   eformat _ (Exedit r)
-    = unlinePairs $ toPairs
-    $ #width @= show (r ^. #width)
-    <: #height @= show (r ^. #height)
-    <: #rate @= show (r ^. #rate)
-    <: #scale @= show (r ^. #scale)
-    <: #length @= show (r ^. #length)
-    <: #audio_rate @= show (r ^. #audio_rate)
-    <: #audio_ch @= show (r ^. #audio_ch)
+    = T.append "[exedit]\n" $ unlinePairs $ toPairs
+    $ #width @= (r ^. #width ^. to showt)
+    <: #height @= (r ^. #height ^. to showt)
+    <: #rate @= (r ^. #rate ^. to showt)
+    <: #scale @= (r ^. #scale ^. to showt)
+    <: #length @= (r ^. #length ^. to showt)
+    <: #audio_rate @= (r ^. #audio_rate ^. to showt)
+    <: #audio_ch @= (r ^. #audio_ch ^. to showt)
     <: emptyRecord
 
   def = Exedit $
@@ -125,16 +130,16 @@ newtype Parameter = Parameter { getParameter :: Record ParameterR }
 makeWrapped ''Parameter
 
 instance ExoFormat Parameter where
-  eformat _ (Parameter r)
-    = unlinePairs $ toPairs
+  eformat n (Parameter r)
+    = T.append (format "[{}.1]" [n]) $ unlinePairs $ toPairs
     $ #__name @= "標準描画"
-    <: #_X @= show (r ^. #_X)
-    <: #_Y @= show (r ^. #_Y)
-    <: #_Z @= show (r ^. #_Z)
-    <: #_拡大率 @= show (r ^. #_拡大率)
-    <: #_透明度 @= show (r ^. #_透明度)
-    <: #_回転 @= show (r ^. #_回転)
-    <: #blend @= (show $ fromEnum $ r ^. #blend)
+    <: #_X @= (r ^. #_X ^. to showt)
+    <: #_Y @= (r ^. #_Y ^. to showt)
+    <: #_Z @= (r ^. #_Z ^. to showt)
+    <: #_拡大率 @= (r ^. #_拡大率 ^. to showt)
+    <: #_透明度 @= (r ^. #_透明度 ^. to showt)
+    <: #_回転 @= (r ^. #_回転 ^. to showt)
+    <: #blend @= (r ^. #blend ^. from enum . to showt)
     <: emptyRecord
 
   def = Parameter
@@ -150,31 +155,31 @@ instance ExoFormat Parameter where
 
 data RGB = RGB Word8 Word8 Word8
 
-_RGB :: Getter RGB String
+_RGB :: Getter RGB T.Text
 _RGB = to $ \case
-  RGB r g b -> r ^. re hex ++ g ^. re hex ++ b ^. re hex
+  RGB r g b -> T.pack $ concat [r ^. re hex, g ^. re hex, b ^. re hex]
 
 type FigureR =
-  [ "__name" >: String
+  [ "__name" >: T.Text
   , "_サイズ" >: Int
   , "_縦横比" >: Double
   , "_ライン幅" >: Double
   , "_type" >: Int
   , "color" >: RGB
-  , "name" >: String
+  , "name" >: T.Text
   ]
 
 newtype Figure = Figure { getFigure :: Record FigureR }
 makeWrapped ''Figure
 
 instance ExoFormat Figure where
-  eformat _ (Figure r)
-    = unlinePairs $ toPairs
+  eformat n (Figure r)
+    = T.append (format "[{}.0]\n" [n]) $ unlinePairs $ toPairs
     $ #__name @= r ^. #__name
-    <: #_サイズ @= show (r ^. #_サイズ)
-    <: #_縦横比 @= show (r ^. #_縦横比)
-    <: #_ライン幅 @= show (r ^. #_ライン幅)
-    <: #_type @= show (r ^. #_type)
+    <: #_サイズ @= (r ^. #_サイズ ^. to showt)
+    <: #_縦横比 @= (r ^. #_縦横比 ^. to showt)
+    <: #_ライン幅 @= (r ^. #_ライン幅 ^. to showt)
+    <: #_type @= (r ^. #_type ^. to showt)
     <: #color @= (r ^. #color ^. _RGB)
     <: #name @= r ^. #name
     <: emptyRecord
@@ -203,32 +208,33 @@ type TLObjectR =
 newtype TLObject = TLObject { getTLObject :: Record TLObjectR }
 makeWrapped ''TLObject
 
-showBin :: Bool -> String
+showBin :: Bool -> T.Text
 showBin True = "1"
 showBin False = "0"
 
-showOpt :: Bool -> String
+showOpt :: Bool -> T.Text
 showOpt True = "1"
 showOpt False = ""
 
 instance ExoFormat TLObject where
   eformat n (TLObject r)
-    = unlines $ (:) ("[" ++ show n ++ "]") $ fmap (\(k,v) -> fromPair k v) $ toPairs
-    $ #start @= show (r ^. #start)
-    <: #end @= show (r ^. #end)
-    <: #layer @= show (r ^. #layer)
+    = T.append (format "[{}]\n" [n]) $ T.unlines $ fmap (uncurry fromPair) $ toPairs
+    $ #start @= (r ^. #start ^. to showt)
+    <: #end @= (r ^. #end ^. to showt)
+    <: #layer @= (r ^. #layer ^. to showt)
     <: #overlay @= "1"
-    <: #camera @= showBin (r ^. #camera)
-    <: #clipping @= showOpt (r ^. #clipping)
+    <: #camera @= (r ^. #camera ^. to showBin)
+    <: #clipping @= (r ^. #clipping ^. to showOpt)
     <: #figure @= eformat n (r ^. #figure)
     <: #parameter @= eformat n (r ^. #parameter)
     <: emptyRecord
 
     where
-      fromPair "clipping" v = v
-      fromPair "figure" v = "[" ++ show n ++ ".0]\n" ++ v
-      fromPair "parameter" v = "[" ++ show n ++ ".1]\n" ++ v
-      fromPair k v = k ++ "=" ++ v
+      fromPair :: T.Text -> T.Text -> T.Text
+      fromPair "clipping" v | v == "" = ""
+      fromPair "figure" v = v
+      fromPair "parameter" v = v
+      fromPair k v = format "{}={}" [k, v]
 
   def = TLObject
     $ #start @= 1
@@ -247,9 +253,8 @@ _TLinterval = lens
 
 printExo :: Exedit -> IO ()
 printExo ex = do
-  putStrLn "[exedit]"
-  putStrLn $ eformat 0 ex
-  putStrLn $ eformat 0 (def @TLObject)
+  T.putStrLn $ eformat 0 $ ex & _Wrapped . #length .~ 10
+  T.putStrLn $ eformat 0 (def @TLObject)
 
 main :: IO ()
 main = do
