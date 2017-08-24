@@ -14,10 +14,8 @@ extra-source-files:
 dependencies:
   - base >= 4.7 && < 5
   - linear
-  - bookkeeper
+  - extensible
   - lens
-  - aeson
-  - type-level-sets
   - text
 
 default-extensions:
@@ -31,6 +29,9 @@ default-extensions:
   - FlexibleInstances
   - LambdaCase
   - OverloadedLabels
+  - TypeApplications
+  - PolyKinds
+  - FlexibleContexts
 
 executables:
   avix:
