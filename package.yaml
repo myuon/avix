@@ -17,8 +17,11 @@ dependencies:
 - extensible
 - lens
 - text
+- intervals
 
 default-extensions:
+- Strict
+- StrictData
 - TemplateHaskell
 - DataKinds
 - KindSignatures
@@ -32,6 +35,7 @@ default-extensions:
 - TypeApplications
 - PolyKinds
 - FlexibleContexts
+- OverloadedStrings
 
 ghc-options:
 - -Wunused-imports
