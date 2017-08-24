@@ -1,10 +1,12 @@
--- from: https://gist.github.com/lotz84/5a5fd1aba842bbf111a7f5c548f40cfa
+{-# LANGUAGE UndecidableInstances #-}
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE TypeFamilies #-}
+-- from: https://gist.github.com/lotz84/5a5fd1aba842bbf111a7f5c548f40cfa
 module Bookkeeper.JSON where
 
+import Bookkeeper
 import Bookkeeper.Internal (Book'(..))
 import Data.Aeson (ToJSON(..), object, (.=))
 import Data.Aeson.Types (Pair)
@@ -35,5 +37,5 @@ instance (KnownSymbol k, Show v, ToStrPairs m) => ToStrPairs ((k :-> v) : m) whe
   toStrPairs (Ext k v m) = (show k, show v) : toStrPairs m
 
 bookPairs :: ToStrPairs m => Book' m -> [(String, String)]
-bookPairs (Book m) = reverse $ toStrPairs m
+bookPairs (Book m) = toStrPairs m
 

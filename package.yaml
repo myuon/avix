@@ -20,6 +20,18 @@ dependencies:
   - type-level-sets
   - text
 
+default-extensions:
+  - TemplateHaskell
+  - DataKinds
+  - KindSignatures
+  - TypeOperators
+  - TypeFamilies
+  - MultiParamTypeClasses
+  - FunctionalDependencies
+  - FlexibleInstances
+  - LambdaCase
+  - OverloadedLabels
+
 executables:
   avix:
     source-dirs:      src
