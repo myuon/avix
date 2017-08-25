@@ -9,6 +9,7 @@ import Data.Exo.Records.Image as M  -- 画像ファイル
 import Data.Exo.Records.Text as M  -- テキスト
 import Data.Exo.Records.Figure as M  -- 図形
 import Data.Exo.Records.FrameBuffer as M  -- フレームバッファ
+import Data.Exo.Records.SoundWave as M  -- 音声波形表示
 
 import Data.Exo.Records.Sound as M
 import Data.Exo.Records.Renderer as M
