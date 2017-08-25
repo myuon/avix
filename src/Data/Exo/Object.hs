@@ -10,6 +10,7 @@ import Data.Exo.Object.FrameBuffer as M  -- フレームバッファ
 import Data.Exo.Object.SoundWave as M  -- 音声波形表示
 import Data.Exo.Object.Scene as M  -- シーン
 import Data.Exo.Object.PreviousObject as M  -- 直前オブジェクト
+import Data.Exo.Object.CustomObject as M  -- カスタムオブジェクト
 
-import Data.Exo.Object.Sound as M
+import Data.Exo.Object.Sound as M  -- 音声ファイル
 
