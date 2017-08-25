@@ -37,7 +37,7 @@ type TLObjectR =
     , "sound" >: Sound
     , "figure" >: Figure
     ]
-  , "renderer" >: Renderer
+  , "renderer" >: StdRenderer
   ]
 
 newtype TLObject = TLObject { getTLObject :: Record TLObjectR }
