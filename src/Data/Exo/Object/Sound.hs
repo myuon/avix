@@ -1,36 +1,36 @@
-module Data.Exo.Records.Movie where
+module Data.Exo.Object.Sound where
 
 import Control.Lens
 import Data.Extensible
 import Data.Exo.ExoFormat
 
-type MovieR =
+type SoundR =
   [ "_再生位置" >: Double
   , "_再生速度" >: Double
   , "_ループ再生" >: Bool
-  , "_アルファチャンネルを読み込む" >: Bool
+  , "_動画ファイルと連携" >: Bool
   , "file" >: FilePath
   ]
 
-newtype Movie = Movie { getMovie :: Record MovieR }
-makeWrapped ''Movie
+newtype Sound = Sound { getSound :: Record SoundR }
+makeWrapped ''Sound
 
-instance ExoFormat Movie where
-  eformat n (Movie r)
+instance ExoFormat Sound where
+  eformat n (Sound r)
     = unlinePairs $ toPairs
-    $ #__name @= "動画ファイル"
+    $ #__name @= "音声ファイル"
     <: #_再生位置 @= (r ^. #_再生位置 ^. to showt)
     <: #_再生速度 @= (r ^. #_再生速度 ^. to showt)
     <: #_ループ再生 @= (r ^. #_ループ再生 ^. to showBin)
-    <: #_アルファチャンネルを読み込む @= (r ^. #_アルファチャンネルを読み込む ^. to showBin)
+    <: #_動画ファイルと連携 @= (r ^. #_動画ファイルと連携 ^. to showBin)
     <: #file @= (r ^. #file ^. to showt)
     <: emptyRecord
-  
-  def = Movie
+
+  def = Sound
     $ #_再生位置 @= 0
     <: #_再生速度 @= 100
     <: #_ループ再生 @= False
-    <: #_アルファチャンネルを読み込む @= False
+    <: #_動画ファイルと連携 @= False
     <: #file @= ""
     <: emptyRecord
 

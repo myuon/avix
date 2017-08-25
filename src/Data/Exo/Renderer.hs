@@ -1,4 +1,4 @@
-module Data.Exo.Records.Renderer where
+module Data.Exo.Renderer where
 
 import Control.Lens
 import Data.Extensible

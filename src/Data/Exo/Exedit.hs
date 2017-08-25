@@ -1,4 +1,4 @@
-module Data.Exo.Records.Exedit where
+module Data.Exo.Exedit where
 
 import Control.Lens
 import Data.Extensible

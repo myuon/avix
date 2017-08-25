@@ -1,5 +1,5 @@
 {-# LANGUAGE MagicHash #-}
-module Data.Exo.Records.Scene where
+module Data.Exo.Object.Scene where
 
 import Control.Lens
 import Data.Extensible

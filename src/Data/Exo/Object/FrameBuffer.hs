@@ -1,4 +1,4 @@
-module Data.Exo.Records.FrameBuffer where
+module Data.Exo.Object.FrameBuffer where
 
 import Control.Lens
 import Data.Extensible

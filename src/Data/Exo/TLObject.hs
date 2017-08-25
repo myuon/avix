@@ -1,10 +1,8 @@
-module Data.Exo.Records.TLObject where
+module Data.Exo.TLObject where
 
 import Data.Exo.ExoFormat
-import Data.Exo.Records.Movie
-import Data.Exo.Records.Sound
-import Data.Exo.Records.Figure
-import Data.Exo.Records.Renderer
+import Data.Exo.Object
+import Data.Exo.Renderer
 
 import Control.Lens hiding ((...))
 import Data.Extensible

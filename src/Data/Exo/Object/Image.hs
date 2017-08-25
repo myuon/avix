@@ -1,4 +1,4 @@
-module Data.Exo.Records.Image where
+module Data.Exo.Object.Image where
 
 import Control.Lens
 import Data.Extensible

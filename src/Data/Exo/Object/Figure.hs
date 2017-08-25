@@ -1,4 +1,4 @@
-module Data.Exo.Records.Figure where
+module Data.Exo.Object.Figure where
 
 import Control.Lens
 import Data.Extensible

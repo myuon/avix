@@ -1,4 +1,4 @@
-module Data.Exo.Records.SoundWave where
+module Data.Exo.Object.SoundWave where
 
 import Control.Lens
 import Data.Extensible

@@ -1,4 +1,4 @@
-module Data.Exo.Records.PreviousObject where
+module Data.Exo.Object.PreviousObject where
 
 import Control.Lens
 import Data.Extensible

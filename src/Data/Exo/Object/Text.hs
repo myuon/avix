@@ -1,4 +1,4 @@
-module Data.Exo.Records.Text where
+module Data.Exo.Object.Text where
 
 import Control.Lens
 import Data.Extensible
