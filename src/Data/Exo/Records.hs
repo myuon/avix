@@ -11,6 +11,7 @@ import Data.Exo.Records.Figure as M  -- 図形
 import Data.Exo.Records.FrameBuffer as M  -- フレームバッファ
 import Data.Exo.Records.SoundWave as M  -- 音声波形表示
 import Data.Exo.Records.Scene as M  -- シーン
+import Data.Exo.Records.PreviousObject as M  -- 直前オブジェクト
 
 import Data.Exo.Records.Sound as M
 import Data.Exo.Records.Renderer as M
