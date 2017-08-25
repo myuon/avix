@@ -3,8 +3,6 @@ module Data.Exo.Records.Image where
 import Control.Lens
 import Data.Extensible
 import Data.Exo.ExoFormat
-import Data.Text.Format (format)
-import qualified Data.Text.Lazy as T
 
 type ImageR =
   '[ "file" >: FilePath
@@ -15,8 +13,9 @@ makeWrapped ''Image
 
 instance ExoFormat Image where
   eformat n (Image r)
-    = T.append (format "[{}.0]\n" [n]) $ unlinePairs $ toPairs
-    $ #file @= ""
+    = unlinePairs $ toPairs
+    $ #__name @= "画像ファイル"
+    <: #file @= ""
     <: emptyRecord
 
   def = Image

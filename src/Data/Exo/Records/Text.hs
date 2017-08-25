@@ -4,7 +4,6 @@ import Control.Lens
 import Data.Extensible
 import Data.Exo.Types
 import Data.Exo.ExoFormat
-import Data.Text.Format (format)
 import qualified Data.Text.Lazy as T
 
 data RenderType = RenderNormal | Shaded | ShadedLight | Bordered | BorderedThin
@@ -85,8 +84,9 @@ _滑らかにする = _Wrapped . #soft
 
 instance ExoFormat Text where
   eformat n (Text r)
-    = T.append (format "[{}.0]\n" [n]) $ unlinePairs $ toPairs
-    $ #_サイズ @= (r ^. #_サイズ ^. to showt)
+    = unlinePairs $ toPairs
+    $ #__name @= "テキスト"
+    <: #_サイズ @= (r ^. #_サイズ ^. to showt)
     <: #_表示速度 @= (r ^. #_表示速度 ^. to showt)
     <: #_文字毎に個別オブジェクト @= (r ^. #_文字毎に個別オブジェクト ^. to showBin)
     <: #_移動座標上に表示する @= (r ^. #_移動座標上に表示する ^. to showBin)

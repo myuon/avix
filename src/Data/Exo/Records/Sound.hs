@@ -3,8 +3,6 @@ module Data.Exo.Records.Sound where
 import Control.Lens
 import Data.Extensible
 import Data.Exo.ExoFormat
-import Data.Text.Format (format)
-import qualified Data.Text.Lazy as T
 
 type SoundR =
   [ "_再生位置" >: Double
@@ -19,7 +17,7 @@ makeWrapped ''Sound
 
 instance ExoFormat Sound where
   eformat n (Sound r)
-    = T.append (format "[{}.0]\n" [n]) $ unlinePairs $ toPairs
+    = unlinePairs $ toPairs
     $ #__name @= "音声ファイル"
     <: #_再生位置 @= (r ^. #_再生位置 ^. to showt)
     <: #_再生速度 @= (r ^. #_再生速度 ^. to showt)

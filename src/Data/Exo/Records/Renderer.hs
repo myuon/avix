@@ -4,7 +4,6 @@ import Control.Lens
 import Data.Extensible
 import Data.Exo.Types
 import Data.Exo.ExoFormat
-import Data.Text.Format (format)
 import qualified Data.Text.Lazy as T
 
 data BlendMode
@@ -56,7 +55,7 @@ makeWrapped ''Renderer
 
 instance ExoFormat Renderer where
   eformat n (Renderer r)
-    = T.append (format "[{}.1]\n" [n]) $ unlinePairs $ toPairs
+    = unlinePairs $ toPairs
     $ #__name @= "標準描画"
     <: #_X @= (r ^. #_X ^. to showt)
     <: #_Y @= (r ^. #_Y ^. to showt)

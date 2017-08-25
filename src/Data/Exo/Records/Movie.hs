@@ -3,8 +3,6 @@ module Data.Exo.Records.Movie where
 import Control.Lens
 import Data.Extensible
 import Data.Exo.ExoFormat
-import Data.Text.Format (format)
-import qualified Data.Text.Lazy as T
 
 type MovieR =
   [ "_再生位置" >: Double
@@ -19,7 +17,7 @@ makeWrapped ''Movie
 
 instance ExoFormat Movie where
   eformat n (Movie r)
-    = T.append (format "[{}.0]\n" [n]) $ unlinePairs $ toPairs
+    = unlinePairs $ toPairs
     $ #__name @= "動画ファイル"
     <: #_再生位置 @= (r ^. #_再生位置 ^. to showt)
     <: #_再生速度 @= (r ^. #_再生速度 ^. to showt)

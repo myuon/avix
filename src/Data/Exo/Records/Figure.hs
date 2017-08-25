@@ -4,7 +4,6 @@ import Control.Lens
 import Data.Extensible
 import Data.Exo.ExoFormat
 import Data.Exo.Types
-import Data.Text.Format (format)
 import qualified Data.Text.Lazy as T
 
 type FigureR =
@@ -21,7 +20,7 @@ makeWrapped ''Figure
 
 instance ExoFormat Figure where
   eformat n (Figure r)
-    = T.append (format "[{}.0]\n" [n]) $ unlinePairs $ toPairs
+    = unlinePairs $ toPairs
     $ #__name @= "図形"
     <: #_サイズ @= (r ^. #_サイズ ^. to showt)
     <: #_縦横比 @= (r ^. #_縦横比 ^. to showt)
