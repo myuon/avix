@@ -1,3 +1,4 @@
+{-# LANGUAGE AllowAmbiguousTypes #-}
 module Main where
 
 import Data.Extensible
@@ -24,6 +25,14 @@ unlinePairs = T.unlines . fmap (\(k,v) -> T.concat [stripUS k, "=", v]) where
 
 showt :: (Show a) => a -> T.Text
 showt = T.pack . show
+
+showBin :: Bool -> T.Text
+showBin True = "1"
+showBin False = "0"
+
+showOpt :: Bool -> T.Text
+showOpt True = "1"
+showOpt False = ""
 
 class ExoFormat t where
   eformat :: Int -> t -> T.Text
@@ -85,9 +94,40 @@ _RGB :: Getter RGB T.Text
 _RGB = to $ \case
   RGB r g b -> T.pack $ concat [r ^. re hex, g ^. re hex, b ^. re hex]
 
+
+type MovieR =
+  [ "_再生位置" >: Double
+  , "_再生速度" >: Double
+  , "_ループ再生" >: Bool
+  , "_アルファチャンネルを読み込む" >: Bool
+  , "file" >: FilePath
+  ]
+
+newtype Movie = Movie { getMovie :: Record MovieR }
+makeWrapped ''Movie
+
+instance ExoFormat Movie where
+  eformat n (Movie r)
+    = T.append (format "[{}.0]\n" [n]) $ unlinePairs $ toPairs
+    $ #__name @= "動画ファイル"
+    <: #_再生位置 @= (r ^. #_再生位置 ^. to showt)
+    <: #_再生速度 @= (r ^. #_再生速度 ^. to showt)
+    <: #_ループ再生 @= (r ^. #_ループ再生 ^. to showBin)
+    <: #_アルファチャンネルを読み込む @= (r ^. #_アルファチャンネルを読み込む ^. to showBin)
+    <: #file @= (r ^. #file ^. to showt)
+    <: emptyRecord
+  
+  def = Movie
+    $ #_再生位置 @= 0
+    <: #_再生速度 @= 100
+    <: #_ループ再生 @= False
+    <: #_アルファチャンネルを読み込む @= False
+    <: #file @= ""
+    <: emptyRecord
+
+
 type FigureR =
-  [ "__name" >: T.Text
-  , "_サイズ" >: Int
+  [ "_サイズ" >: Int
   , "_縦横比" >: Double
   , "_ライン幅" >: Double
   , "_type" >: Int
@@ -101,7 +141,7 @@ makeWrapped ''Figure
 instance ExoFormat Figure where
   eformat n (Figure r)
     = T.append (format "[{}.0]\n" [n]) $ unlinePairs $ toPairs
-    $ #__name @= r ^. #__name
+    $ #__name @= "図形"
     <: #_サイズ @= (r ^. #_サイズ ^. to showt)
     <: #_縦横比 @= (r ^. #_縦横比 ^. to showt)
     <: #_ライン幅 @= (r ^. #_ライン幅 ^. to showt)
@@ -111,16 +151,13 @@ instance ExoFormat Figure where
     <: emptyRecord
 
   def = Figure
-    $ #__name @= "図形"
-    <: #_サイズ @= 100
+    $ #_サイズ @= 100
     <: #_縦横比 @= 0
     <: #_ライン幅 @= 4000
     <: #_type @= 1
     <: #color @= RGB 255 255 255
     <: #name @= ""
     <: emptyRecord
-
-data RenderType = Standard
 
 data BlendMode
   = Normal         -- 通常
@@ -156,9 +193,8 @@ _blendMode = iso (\b -> fromJust $ lookup b dic) (\b -> fromJust $ lookup b $ fm
     , (Difference, "差分")
     ]
 
-type ParameterR =
-  [ "__name" >: RenderType
-  , "_X" >: Double
+type RendererR =
+  [ "_X" >: Double
   , "_Y" >: Double
   , "_Z" >: Double
   , "_拡大率" >: Double
@@ -167,11 +203,11 @@ type ParameterR =
   , "blend" >: BlendMode
   ]
 
-newtype Parameter = Parameter { getParameter :: Record ParameterR }
-makeWrapped ''Parameter
+newtype Renderer = Renderer { getParameter :: Record RendererR }
+makeWrapped ''Renderer
 
-instance ExoFormat Parameter where
-  eformat n (Parameter r)
+instance ExoFormat Renderer where
+  eformat n (Renderer r)
     = T.append (format "[{}.1]\n" [n]) $ unlinePairs $ toPairs
     $ #__name @= "標準描画"
     <: #_X @= (r ^. #_X ^. to showt)
@@ -183,9 +219,8 @@ instance ExoFormat Parameter where
     <: #blend @= (r ^. #blend ^. from enum . to showt)
     <: emptyRecord
 
-  def = Parameter
-    $ #__name @= Standard
-    <: #_X @= 0
+  def = Renderer
+    $ #_X @= 0
     <: #_Y @= 0
     <: #_Z @= 0
     <: #_拡大率 @= 100
@@ -201,20 +236,22 @@ type TLObjectR =
 --  , "overlay" >: Int これなあに？
   , "camera" >: Bool
   , "clipping" >: Bool
-  , "figure" >: Figure
-  , "parameter" >: Parameter
+  , "object" >: Variant
+    [ "movie" >: Movie
+--    , "sound" >: Record '[]
+    , "figure" >: Figure
+    ]
+  , "renderer" >: Renderer
   ]
 
 newtype TLObject = TLObject { getTLObject :: Record TLObjectR }
 makeWrapped ''TLObject
 
-showBin :: Bool -> T.Text
-showBin True = "1"
-showBin False = "0"
-
-showOpt :: Bool -> T.Text
-showOpt True = "1"
-showOpt False = ""
+class ExoFormatAssoc t where
+  eformatAssoc :: Int -> AssocValue t -> T.Text
+  
+instance ExoFormat v => ExoFormatAssoc (k >: v) where
+  eformatAssoc = eformat
 
 instance ExoFormat TLObject where
   eformat n (TLObject r)
@@ -225,11 +262,16 @@ instance ExoFormat TLObject where
     <: #overlay @= "1"
     <: #camera @= (r ^. #camera ^. to showBin)
     <: #clipping @= (r ^. #clipping ^. to showOpt)
-    <: #figure @= eformat n (r ^. #figure)
-    <: #parameter @= eformat n (r ^. #parameter)
+    <: #object @= matchField mat (r ^. #object)
+    <: #renderer @= eformat n (r ^. #renderer)
     <: emptyRecord
 
     where
+      mat :: RecordOf (Match Identity T.Text) ["movie" >: Movie, "figure" >: Figure]
+      mat = #movie @= eformat n
+        <: #figure @= eformat n
+        <: nil
+      
       fromPair :: T.Text -> T.Text -> T.Text
       fromPair "clipping" v | v == "" = ""
       fromPair "figure" v = v
@@ -242,19 +284,22 @@ instance ExoFormat TLObject where
     <: #layer @= 1
     <: #camera @= False
     <: #clipping @= False
-    <: #figure @= def
-    <: #parameter @= def
+    <: #object @= undefined
+    <: #renderer @= def
     <: emptyRecord
 
 _TLinterval :: Lens' TLObject (Interval Natural)
 _TLinterval = lens
-  (\r -> r ^. _Wrapped . #start ... r ^. _Wrapped . #end)
+  (\r -> (r ^. _Wrapped . #start) ... (r ^. _Wrapped . #end))
   (\r int -> r & _Wrapped . #start .~ inf int & _Wrapped . #end .~ sup int)
+
+getAssocValue :: Field h kv -> h (AssocValue kv)
+getAssocValue fh = getField fh
 
 printExo :: Exedit -> IO ()
 printExo ex = do
   T.putStrLn $ eformat 0 $ ex & _Wrapped . #length .~ 10
-  T.putStrLn $ eformat 0 (def @TLObject)
+  T.putStrLn $ eformat 0 $ (def @TLObject) & _Wrapped . #object .~ embed (#figure @= def @Figure)
 
 main :: IO ()
 main = do
