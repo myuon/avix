@@ -4,4 +4,5 @@ module Data.Exo.Renderer
 
 import Data.Exo.Renderer.StdRenderer as M
 import Data.Exo.Renderer.ExtRenderer as M
+import Data.Exo.Renderer.ParticleOutput as M
 
