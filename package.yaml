@@ -19,6 +19,7 @@ dependencies:
 - text
 - intervals
 - text-format
+- ghc-prim
 
 default-extensions:
 - Strict
