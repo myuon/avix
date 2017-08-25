@@ -63,8 +63,8 @@ instance ExoFormat TLObject where
       
       fromPair :: T.Text -> T.Text -> T.Text
       fromPair "clipping" v | v == "" = ""
-      fromPair "figure" v = format "[{}.0]\n{}" [showt n, v]
-      fromPair "parameter" v = format "[{}.1]\n{}" [showt n, v]
+      fromPair "object" v = format "[{}.0]\n{}" [showt n, v]
+      fromPair "renderer" v = format "[{}.1]\n{}" [showt n, v]
       fromPair k v = format "{}={}" [k, v]
 
   def = TLObject
