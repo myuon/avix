@@ -1,8 +1,8 @@
 module Data.Exo.Records.Renderer where
 
 import Control.Lens
-import Data.Maybe (fromJust)
 import Data.Extensible
+import Data.Exo.Types
 import Data.Exo.ExoFormat
 import Data.Text.Format (format)
 import qualified Data.Text.Lazy as T
@@ -24,7 +24,7 @@ data BlendMode
   deriving (Eq, Enum, Show)
 
 _blendMode :: Iso' BlendMode T.Text
-_blendMode = iso (\b -> fromJust $ lookup b dic) (\b -> fromJust $ lookup b $ fmap (^. swapped) dic) where
+_blendMode = isoGraph dic where
   dic =
     [ (Normal, "通常")
     , (Addition, "加算")

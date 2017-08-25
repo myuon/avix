@@ -14,7 +14,6 @@ import Numeric.Interval
 import Numeric.Natural
 import Linear.V2
 
-
 data Resolution = VGA | HD | FullHD | Niconico | Custom (V2 Int)
 
 _resolution :: Getter Resolution (V2 Int)

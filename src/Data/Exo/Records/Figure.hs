@@ -1,19 +1,11 @@
 module Data.Exo.Records.Figure where
 
 import Control.Lens
-import Data.Word
 import Data.Extensible
 import Data.Exo.ExoFormat
+import Data.Exo.Types
 import Data.Text.Format (format)
 import qualified Data.Text.Lazy as T
-import Numeric.Lens (hex)
-
-data RGB = RGB Word8 Word8 Word8
-
-_RGB :: Getter RGB T.Text
-_RGB = to $ \case
-  RGB r g b -> T.pack $ concat [r ^. re hex, g ^. re hex, b ^. re hex]
-
 
 type FigureR =
   [ "_サイズ" >: Int
