@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><link rel="stylesheet" type="text/css" href="style.css" /><script type="text/javascript" src="highlight.js"></script></head><body><pre><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Data</span><span class="hs-operator">.</span><span class="hs-identifier">Exo</span><span class="hs-operator">.</span><span class="hs-identifier">Object</span><span class="hs-operator">.</span><span class="hs-identifier">SoundWave</span><span> </span><span class="hs-keyword">where</span><span>
+</span><a name="line-2"></a><span>
+</span><a name="line-3"></a><span class="hs-keyword">import</span><span> </span><span class="hs-identifier">Control</span><span class="hs-operator">.</span><span class="hs-identifier">Lens</span><span>
+</span><a name="line-4"></a><span class="hs-keyword">import</span><span> </span><span class="hs-identifier">Data</span><span class="hs-operator">.</span><span class="hs-identifier">Extensible</span><span>
+</span><a name="line-5"></a><span class="hs-keyword">import</span><span> </span><a href="Data.Exo.Types.html"><span class="hs-identifier">Data</span><span class="hs-operator">.</span><span class="hs-identifier">Exo</span><span class="hs-operator">.</span><span class="hs-identifier">Types</span></a><span>
+</span><a name="line-6"></a><span class="hs-keyword">import</span><span> </span><a href="Data.Exo.ExoFormat.html"><span class="hs-identifier">Data</span><span class="hs-operator">.</span><span class="hs-identifier">Exo</span><span class="hs-operator">.</span><span class="hs-identifier">ExoFormat</span></a><span>
+</span><a name="line-7"></a><span>
+</span><a name="line-8"></a><span class="hs-keyword">data</span><span> </span><a name="SoundWaveType"><a href="Data.Exo.Object.SoundWave.html#SoundWaveType"><span class="hs-identifier">SoundWaveType</span></a></a><span> </span><span class="hs-glyph">=</span><span> </span><a name="Type1"><a href="Data.Exo.Object.SoundWave.html#Type1"><span class="hs-identifier">Type1</span></a></a><span> </span><span class="hs-glyph">|</span><span> </span><a name="Type2"><a href="Data.Exo.Object.SoundWave.html#Type2"><span class="hs-identifier">Type2</span></a></a><span> </span><span class="hs-glyph">|</span><span> </span><a name="Type3"><a href="Data.Exo.Object.SoundWave.html#Type3"><span class="hs-identifier">Type3</span></a></a><span> </span><span class="hs-glyph">|</span><span> </span><a name="Type4"><a href="Data.Exo.Object.SoundWave.html#Type4"><span class="hs-identifier">Type4</span></a></a><span> </span><span class="hs-glyph">|</span><span> </span><a name="Type5"><a href="Data.Exo.Object.SoundWave.html#Type5"><span class="hs-identifier">Type5</span></a></a><span>
+</span><a name="line-9"></a><span>  </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span class="hs-identifier hs-type">Eq</span><span class="hs-special">,</span><span> </span><span class="hs-identifier hs-type">Enum</span><span class="hs-special">,</span><span> </span><span class="hs-identifier hs-type">Show</span><span class="hs-special">)</span><span>
+</span><a name="line-10"></a><span>
+</span><a name="line-11"></a><span class="hs-keyword">type</span><span> </span><a name="SoundWaveR"><a href="Data.Exo.Object.SoundWave.html#SoundWaveR"><span class="hs-identifier">SoundWaveR</span></a></a><span> </span><span class="hs-glyph">=</span><span>
+</span><a name="line-12"></a><span>  </span><span class="hs-special">[</span><span> </span><span class="hs-string">&quot;_&#27178;&#24133;&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Int</span><span>
+</span><a name="line-13"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;_&#39640;&#12373;&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Int</span><span>
+</span><a name="line-14"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;_&#38899;&#37327;&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Double</span><span>
+</span><a name="line-15"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;_&#20877;&#29983;&#20301;&#32622;&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Double</span><span>
+</span><a name="line-16"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;_&#32232;&#38598;&#20840;&#20307;&#12398;&#38899;&#22768;&#12434;&#20803;&#12395;&#12377;&#12427;&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Bool</span><span>
+</span><a name="line-17"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;file&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">FilePath</span><span>
+</span><a name="line-18"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;_type&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><a href="Data.Exo.Object.SoundWave.html#SoundWaveType"><span class="hs-identifier hs-type">SoundWaveType</span></a><span>
+</span><a name="line-19"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;mode&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Bool</span><span>  </span><span class="hs-comment">-- &#27874;&#24418;&#12479;&#12452;&#12503;(0/1) &#8592; &#12481;&#12455;&#12483;&#12463;&#12508;&#12483;&#12463;&#12473;&#12395;&#12399;&#12375;&#12394;&#12356;&#29702;&#30001;&#12364;&#12354;&#12427;&#12398;&#65311;</span><span>
+</span><a name="line-20"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;res_w&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Int</span><span>  </span><span class="hs-comment">-- &#27178;&#35299;&#20687;&#24230;</span><span>
+</span><a name="line-21"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;res_h&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Int</span><span>  </span><span class="hs-comment">-- &#32294;&#35299;&#20687;&#24230;</span><span>
+</span><a name="line-22"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;pad_w&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Int</span><span>  </span><span class="hs-comment">-- &#27178;&#12473;&#12506;&#12540;&#12473;(%)</span><span>
+</span><a name="line-23"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;pad_h&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Int</span><span>  </span><span class="hs-comment">-- &#32294;&#12473;&#12506;&#12540;&#12473;(%)</span><span>
+</span><a name="line-24"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;color&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><a href="Data.Exo.Types.html#RGB"><span class="hs-identifier hs-type">RGB</span></a><span>  </span><span class="hs-comment">-- &#27874;&#24418;&#12398;&#33394;</span><span>
+</span><a name="line-25"></a><span class="hs-comment">--  , &quot;sample_n&quot; &gt;: _ &#8592; &#12394;&#12395;&#12371;&#12428;</span><span>
+</span><a name="line-26"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;mirror&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Int</span><span>  </span><span class="hs-comment">-- &#12511;&#12521;&#12540;</span><span>
+</span><a name="line-27"></a><span>  </span><span class="hs-special">]</span><span>
+</span><a name="line-28"></a><span>
+</span><a name="line-29"></a><span class="hs-keyword">newtype</span><span> </span><a name="SoundWave"><a href="Data.Exo.Object.SoundWave.html#SoundWave"><span class="hs-identifier">SoundWave</span></a></a><span> </span><span class="hs-glyph">=</span><span> </span><a name="SoundWave"><a href="Data.Exo.Object.SoundWave.html#SoundWave"><span class="hs-identifier">SoundWave</span></a></a><span> </span><span class="hs-special">{</span><span> </span><a name="getSoundWave"><a href="Data.Exo.Object.SoundWave.html#getSoundWave"><span class="hs-identifier">getSoundWave</span></a></a><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-identifier hs-type">Record</span><span> </span><a href="Data.Exo.Object.SoundWave.html#SoundWaveR"><span class="hs-identifier hs-type">SoundWaveR</span></a><span> </span><span class="hs-special">}</span><span>
+</span><a name="line-30"></a><span class="hs-identifier hs-var">makeWrapped</span><span> </span><span class="hs-char">''SoundWave
+
+instance ExoFormat SoundWave where
+  eformat n (SoundWave r)
+    = unlinePairs $ toPairs
+    $ #__name @= &quot;&#38899;&#22768;&#27874;&#24418;&#34920;&#31034;&quot;
+    &lt;: #_&#27178;&#24133; @= (r ^. #_&#27178;&#24133; ^. to showt)
+    &lt;: #_&#39640;&#12373; @= (r ^. #_&#39640;&#12373; ^. to showt)
+    &lt;: #_&#38899;&#37327; @= (r ^. #_&#38899;&#37327; ^. to showt)
+    &lt;: #_&#20877;&#29983;&#20301;&#32622; @= (r ^. #_&#20877;&#29983;&#20301;&#32622; ^. to showt)
+    &lt;: #_&#32232;&#38598;&#20840;&#20307;&#12398;&#38899;&#22768;&#12434;&#20803;&#12395;&#12377;&#12427; @= (r ^. #_&#32232;&#38598;&#20840;&#20307;&#12398;&#38899;&#22768;&#12434;&#20803;&#12395;&#12377;&#12427; ^. to showBin)
+    &lt;: #file @= (r ^. #file ^. to showt)
+    &lt;: #_type @= (r ^. #_type ^. from enum ^. to showt)
+    &lt;: #mode @= (r ^. #mode ^. to showBin)
+    &lt;: #res_w @= (r ^. #res_w ^. to showt)
+    &lt;: #res_h @= (r ^. #res_h ^. to showt)
+    &lt;: #pad_w @= (r ^. #pad_w ^. to showt)
+    &lt;: #pad_h @= (r ^. #pad_h ^. to showt)
+    &lt;: #color @= (r ^. #color ^. _RGB)
+    &lt;: #sample_n @= &quot;0&quot;
+    &lt;: #mirror @= (r ^. #mirror ^. to showt)
+    &lt;: emptyRecord
+
+  def = SoundWave
+    $ #_&#27178;&#24133; @= 640
+    &lt;: #_&#39640;&#12373; @= 240
+    &lt;: #_&#38899;&#37327; @= 100
+    &lt;: #_&#20877;&#29983;&#20301;&#32622; @= 0
+    &lt;: #_&#32232;&#38598;&#20840;&#20307;&#12398;&#38899;&#22768;&#12434;&#20803;&#12395;&#12377;&#12427; @= True
+    &lt;: #file @= &quot;&quot;
+    &lt;: #_type @= Type1
+    &lt;: #mode @= False
+    &lt;: #res_w @= 0
+    &lt;: #res_h @= 4096
+    &lt;: #pad_w @= 0
+    &lt;: #pad_h @= 0
+    &lt;: #color @= RGB 255 255 255
+    &lt;: #mirror @= 0
+    &lt;: emptyRecord
+
+</span></pre></body></html>

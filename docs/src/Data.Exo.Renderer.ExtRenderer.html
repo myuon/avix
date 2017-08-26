@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><link rel="stylesheet" type="text/css" href="style.css" /><script type="text/javascript" src="highlight.js"></script></head><body><pre><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Data</span><span class="hs-operator">.</span><span class="hs-identifier">Exo</span><span class="hs-operator">.</span><span class="hs-identifier">Renderer</span><span class="hs-operator">.</span><span class="hs-identifier">ExtRenderer</span><span> </span><span class="hs-keyword">where</span><span>
+</span><a name="line-2"></a><span>
+</span><a name="line-3"></a><span class="hs-keyword">import</span><span> </span><span class="hs-identifier">Control</span><span class="hs-operator">.</span><span class="hs-identifier">Lens</span><span>
+</span><a name="line-4"></a><span class="hs-keyword">import</span><span> </span><span class="hs-identifier">Data</span><span class="hs-operator">.</span><span class="hs-identifier">Extensible</span><span>
+</span><a name="line-5"></a><span class="hs-keyword">import</span><span> </span><a href="Data.Exo.Types.html"><span class="hs-identifier">Data</span><span class="hs-operator">.</span><span class="hs-identifier">Exo</span><span class="hs-operator">.</span><span class="hs-identifier">Types</span></a><span>
+</span><a name="line-6"></a><span class="hs-keyword">import</span><span> </span><a href="Data.Exo.ExoFormat.html"><span class="hs-identifier">Data</span><span class="hs-operator">.</span><span class="hs-identifier">Exo</span><span class="hs-operator">.</span><span class="hs-identifier">ExoFormat</span></a><span>
+</span><a name="line-7"></a><span>
+</span><a name="line-8"></a><span class="hs-keyword">type</span><span> </span><a name="ExtRendererR"><a href="Data.Exo.Renderer.ExtRenderer.html#ExtRendererR"><span class="hs-identifier">ExtRendererR</span></a></a><span> </span><span class="hs-glyph">=</span><span>
+</span><a name="line-9"></a><span>  </span><span class="hs-special">[</span><span> </span><span class="hs-string">&quot;_X&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Double</span><span>
+</span><a name="line-10"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;_Y&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Double</span><span>
+</span><a name="line-11"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;_Z&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Double</span><span>
+</span><a name="line-12"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;_&#25313;&#22823;&#29575;&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Double</span><span>
+</span><a name="line-13"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;_&#36879;&#26126;&#24230;&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Double</span><span>
+</span><a name="line-14"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;_&#32294;&#27178;&#27604;&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Double</span><span>
+</span><a name="line-15"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;_X&#36600;&#22238;&#36578;&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Double</span><span>
+</span><a name="line-16"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;_Y&#36600;&#22238;&#36578;&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Double</span><span>
+</span><a name="line-17"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;_Z&#36600;&#22238;&#36578;&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Double</span><span>
+</span><a name="line-18"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;_&#20013;&#24515;X&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Double</span><span>
+</span><a name="line-19"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;_&#20013;&#24515;Y&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Double</span><span>
+</span><a name="line-20"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;_&#20013;&#24515;Z&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Double</span><span>
+</span><a name="line-21"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;_&#35023;&#38754;&#12434;&#34920;&#31034;&#12375;&#12394;&#12356;&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Bool</span><span>
+</span><a name="line-22"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;blend&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><a href="Data.Exo.Types.html#BlendMode"><span class="hs-identifier hs-type">BlendMode</span></a><span>
+</span><a name="line-23"></a><span>  </span><span class="hs-special">]</span><span>
+</span><a name="line-24"></a><span>
+</span><a name="line-25"></a><span class="hs-keyword">newtype</span><span> </span><a name="ExtRenderer"><a href="Data.Exo.Renderer.ExtRenderer.html#ExtRenderer"><span class="hs-identifier">ExtRenderer</span></a></a><span> </span><span class="hs-glyph">=</span><span> </span><a name="ExtRenderer"><a href="Data.Exo.Renderer.ExtRenderer.html#ExtRenderer"><span class="hs-identifier">ExtRenderer</span></a></a><span> </span><span class="hs-special">{</span><span> </span><a name="getExtRenderer"><a href="Data.Exo.Renderer.ExtRenderer.html#getExtRenderer"><span class="hs-identifier">getExtRenderer</span></a></a><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-identifier hs-type">Record</span><span> </span><a href="Data.Exo.Renderer.ExtRenderer.html#ExtRendererR"><span class="hs-identifier hs-type">ExtRendererR</span></a><span> </span><span class="hs-special">}</span><span>
+</span><a name="line-26"></a><span class="hs-identifier hs-var">makeWrapped</span><span> </span><span class="hs-char">''ExtRenderer
+
+instance ExoFormat ExtRenderer where
+  eformat n (ExtRenderer r)
+    = unlinePairs $ toPairs
+    $ #__name @= &quot;&#25313;&#24373;&#25551;&#30011;&quot;
+    &lt;: #_X @= (r ^. #_X ^. to showt)
+    &lt;: #_Y @= (r ^. #_Y ^. to showt)
+    &lt;: #_Z @= (r ^. #_Z ^. to showt)
+    &lt;: #_&#25313;&#22823;&#29575; @= (r ^. #_&#25313;&#22823;&#29575; ^. to showt)
+    &lt;: #_&#36879;&#26126;&#24230; @= (r ^. #_&#36879;&#26126;&#24230; ^. to showt)
+    &lt;: #_&#32294;&#27178;&#27604; @= (r ^. #_&#32294;&#27178;&#27604; ^. to showt)
+    &lt;: #_X&#36600;&#22238;&#36578; @= (r ^. #_X&#36600;&#22238;&#36578; ^. to showt)
+    &lt;: #_Y&#36600;&#22238;&#36578; @= (r ^. #_Y&#36600;&#22238;&#36578; ^. to showt)
+    &lt;: #_Z&#36600;&#22238;&#36578; @= (r ^. #_Z&#36600;&#22238;&#36578; ^. to showt)
+    &lt;: #_&#20013;&#24515;X @= (r ^. #_&#20013;&#24515;X ^. to showt)
+    &lt;: #_&#20013;&#24515;Y @= (r ^. #_&#20013;&#24515;Y ^. to showt)
+    &lt;: #_&#20013;&#24515;Z @= (r ^. #_&#20013;&#24515;Z ^. to showt)
+    &lt;: #_&#35023;&#38754;&#12434;&#34920;&#31034;&#12375;&#12394;&#12356; @= (r ^. #_&#35023;&#38754;&#12434;&#34920;&#31034;&#12375;&#12394;&#12356; ^. to showBin)
+    &lt;: #blend @= (r ^. #blend ^. _blendMode)
+    &lt;: emptyRecord
+
+  def = ExtRenderer
+    $ #_X @= 0
+    &lt;: #_Y @= 0
+    &lt;: #_Z @= 0
+    &lt;: #_&#25313;&#22823;&#29575; @= 100
+    &lt;: #_&#36879;&#26126;&#24230; @= 0
+    &lt;: #_&#32294;&#27178;&#27604; @= 0
+    &lt;: #_X&#36600;&#22238;&#36578; @= 0
+    &lt;: #_Y&#36600;&#22238;&#36578; @= 0
+    &lt;: #_Z&#36600;&#22238;&#36578; @= 0
+    &lt;: #_&#20013;&#24515;X @= 0
+    &lt;: #_&#20013;&#24515;Y @= 0
+    &lt;: #_&#20013;&#24515;Z @= 0
+    &lt;: #_&#35023;&#38754;&#12434;&#34920;&#31034;&#12375;&#12394;&#12356; @= False
+    &lt;: #blend @= Normal
+    &lt;: emptyRecord
+
+</span></pre></body></html>

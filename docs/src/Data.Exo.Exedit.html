@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><link rel="stylesheet" type="text/css" href="style.css" /><script type="text/javascript" src="highlight.js"></script></head><body><pre><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Data</span><span class="hs-operator">.</span><span class="hs-identifier">Exo</span><span class="hs-operator">.</span><span class="hs-identifier">Exedit</span><span> </span><span class="hs-keyword">where</span><span>
+</span><a name="line-2"></a><span>
+</span><a name="line-3"></a><span class="hs-keyword">import</span><span> </span><span class="hs-identifier">Control</span><span class="hs-operator">.</span><span class="hs-identifier">Lens</span><span>
+</span><a name="line-4"></a><span class="hs-keyword">import</span><span> </span><span class="hs-identifier">Data</span><span class="hs-operator">.</span><span class="hs-identifier">Extensible</span><span>
+</span><a name="line-5"></a><span class="hs-keyword">import</span><span> </span><a href="Data.Exo.ExoFormat.html"><span class="hs-identifier">Data</span><span class="hs-operator">.</span><span class="hs-identifier">Exo</span><span class="hs-operator">.</span><span class="hs-identifier">ExoFormat</span></a><span>
+</span><a name="line-6"></a><span class="hs-keyword">import</span><span> </span><span class="hs-keyword">qualified</span><span> </span><span class="hs-identifier">Data</span><span class="hs-operator">.</span><span class="hs-identifier">Text</span><span class="hs-operator">.</span><span class="hs-identifier">Lazy</span><span> </span><span class="hs-keyword">as</span><span> </span><span class="hs-identifier">T</span><span>
+</span><a name="line-7"></a><span class="hs-keyword">import</span><span> </span><span class="hs-identifier">Linear</span><span class="hs-operator">.</span><span class="hs-identifier">V2</span><span>
+</span><a name="line-8"></a><span>
+</span><a name="line-9"></a><span>
+</span><a name="line-10"></a><span class="hs-keyword">type</span><span> </span><a name="ExeditR"><a href="Data.Exo.Exedit.html#ExeditR"><span class="hs-identifier">ExeditR</span></a></a><span> </span><span class="hs-glyph">=</span><span>
+</span><a name="line-11"></a><span>  </span><span class="hs-special">[</span><span> </span><span class="hs-string">&quot;width&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Int</span><span>
+</span><a name="line-12"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;height&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Int</span><span>
+</span><a name="line-13"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;rate&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Int</span><span>
+</span><a name="line-14"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;scale&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Double</span><span>
+</span><a name="line-15"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;length&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Int</span><span>
+</span><a name="line-16"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;audio_rate&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Int</span><span>
+</span><a name="line-17"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;audio_ch&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Int</span><span>
+</span><a name="line-18"></a><span>  </span><span class="hs-special">]</span><span>
+</span><a name="line-19"></a><span>
+</span><a name="line-20"></a><span class="hs-keyword">newtype</span><span> </span><a name="Exedit"><a href="Data.Exo.Exedit.html#Exedit"><span class="hs-identifier">Exedit</span></a></a><span> </span><span class="hs-glyph">=</span><span> </span><a name="Exedit"><a href="Data.Exo.Exedit.html#Exedit"><span class="hs-identifier">Exedit</span></a></a><span> </span><span class="hs-special">{</span><span> </span><a name="getExedit"><a href="Data.Exo.Exedit.html#getExedit"><span class="hs-identifier">getExedit</span></a></a><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-identifier hs-type">Record</span><span> </span><a href="Data.Exo.Exedit.html#ExeditR"><span class="hs-identifier hs-type">ExeditR</span></a><span> </span><span class="hs-special">}</span><span>
+</span><a name="line-21"></a><span class="hs-identifier hs-var">makeWrapped</span><span> </span><span class="hs-char">''Exedit
+
+instance ExoFormat Exedit where
+  eformat _ (Exedit r)
+    = T.append &quot;[exedit]\n&quot; $ unlinePairs $ toPairs
+    $ #width @= (r ^. #width ^. to showt)
+    &lt;: #height @= (r ^. #height ^. to showt)
+    &lt;: #rate @= (r ^. #rate ^. to showt)
+    &lt;: #scale @= (r ^. #scale ^. to showt)
+    &lt;: #length @= (r ^. #length ^. to showt)
+    &lt;: #audio_rate @= (r ^. #audio_rate ^. to showt)
+    &lt;: #audio_ch @= (r ^. #audio_ch ^. to showt)
+    &lt;: emptyRecord
+
+  def = Exedit $
+    #width @= 1280
+    &lt;: #height @= 720
+    &lt;: #rate @= 30
+    &lt;: #scale @= 1
+    &lt;: #length @= 1
+    &lt;: #audio_rate @= 44100
+    &lt;: #audio_ch @= 2
+    &lt;: emptyRecord
+
+_size :: Lens' Exedit (V2 Int)
+_size = lens
+  (\r -&gt; V2 (r ^. _Wrapped . #width) (r ^. _Wrapped . #height))
+  (\r v -&gt; r &amp; _Wrapped . #width .~ v ^. _x &amp; _Wrapped . #height .~ v ^. _y)
+
+</span></pre></body></html>

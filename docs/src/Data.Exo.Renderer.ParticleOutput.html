@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><link rel="stylesheet" type="text/css" href="style.css" /><script type="text/javascript" src="highlight.js"></script></head><body><pre><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Data</span><span class="hs-operator">.</span><span class="hs-identifier">Exo</span><span class="hs-operator">.</span><span class="hs-identifier">Renderer</span><span class="hs-operator">.</span><span class="hs-identifier">ParticleOutput</span><span> </span><span class="hs-keyword">where</span><span>
+</span><a name="line-2"></a><span>
+</span><a name="line-3"></a><span class="hs-keyword">import</span><span> </span><span class="hs-identifier">Control</span><span class="hs-operator">.</span><span class="hs-identifier">Lens</span><span>
+</span><a name="line-4"></a><span class="hs-keyword">import</span><span> </span><span class="hs-identifier">Data</span><span class="hs-operator">.</span><span class="hs-identifier">Extensible</span><span>
+</span><a name="line-5"></a><span class="hs-keyword">import</span><span> </span><a href="Data.Exo.Types.html"><span class="hs-identifier">Data</span><span class="hs-operator">.</span><span class="hs-identifier">Exo</span><span class="hs-operator">.</span><span class="hs-identifier">Types</span></a><span>
+</span><a name="line-6"></a><span class="hs-keyword">import</span><span> </span><a href="Data.Exo.ExoFormat.html"><span class="hs-identifier">Data</span><span class="hs-operator">.</span><span class="hs-identifier">Exo</span><span class="hs-operator">.</span><span class="hs-identifier">ExoFormat</span></a><span>
+</span><a name="line-7"></a><span>
+</span><a name="line-8"></a><span class="hs-keyword">type</span><span> </span><a name="ParticleOutputR"><a href="Data.Exo.Renderer.ParticleOutput.html#ParticleOutputR"><span class="hs-identifier">ParticleOutputR</span></a></a><span> </span><span class="hs-glyph">=</span><span>
+</span><a name="line-9"></a><span>  </span><span class="hs-special">[</span><span> </span><span class="hs-string">&quot;_X&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Double</span><span>
+</span><a name="line-10"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;_Y&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Double</span><span>
+</span><a name="line-11"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;_Z&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Double</span><span>
+</span><a name="line-12"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;_&#20986;&#21147;&#38971;&#24230;&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Double</span><span>
+</span><a name="line-13"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;_&#20986;&#21147;&#36895;&#24230;&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Double</span><span>
+</span><a name="line-14"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;_&#21152;&#36895;&#24230;&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Double</span><span>
+</span><a name="line-15"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;_&#20986;&#21147;&#26041;&#21521;&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Double</span><span>
+</span><a name="line-16"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;_&#25313;&#25955;&#35282;&#24230;&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Double</span><span>
+</span><a name="line-17"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;_&#36879;&#36942;&#29575;&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Double</span><span>
+</span><a name="line-18"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;_&#36879;&#36942;&#36895;&#24230;&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Double</span><span>
+</span><a name="line-19"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;_&#25313;&#22823;&#29575;&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Double</span><span>
+</span><a name="line-20"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;_&#25313;&#22823;&#36895;&#24230;&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Double</span><span>
+</span><a name="line-21"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;_&#22238;&#36578;&#35282;&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Double</span><span>
+</span><a name="line-22"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;_&#22238;&#36578;&#36895;&#24230;&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Double</span><span>
+</span><a name="line-23"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;_&#37325;&#21147;&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Double</span><span>
+</span><a name="line-24"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;_&#29983;&#23384;&#26178;&#38291;&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Double</span><span>
+</span><a name="line-25"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;_&#20986;&#21147;&#26041;&#21521;&#12398;&#22522;&#28310;&#12434;&#31227;&#21205;&#26041;&#21521;&#12395;&#12377;&#12427;&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Bool</span><span>
+</span><a name="line-26"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;_&#31227;&#21205;&#31684;&#22258;&#12398;&#24231;&#27161;&#12363;&#12425;&#12521;&#12531;&#12480;&#12512;&#12395;&#20986;&#21147;&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Bool</span><span>
+</span><a name="line-27"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;_3D&#12521;&#12531;&#12480;&#12512;&#22238;&#36578;&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Bool</span><span>
+</span><a name="line-28"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;_&#32066;&#20102;&#28857;&#12391;&#20840;&#12390;&#28040;&#12360;&#12427;&#12424;&#12358;&#12395;&#35519;&#25972;&#12377;&#12427;&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Bool</span><span>
+</span><a name="line-29"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;blend&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><a href="Data.Exo.Types.html#BlendMode"><span class="hs-identifier hs-type">BlendMode</span></a><span>
+</span><a name="line-30"></a><span>  </span><span class="hs-special">]</span><span>
+</span><a name="line-31"></a><span>
+</span><a name="line-32"></a><span class="hs-keyword">newtype</span><span> </span><a name="ParticleOutput"><a href="Data.Exo.Renderer.ParticleOutput.html#ParticleOutput"><span class="hs-identifier">ParticleOutput</span></a></a><span> </span><span class="hs-glyph">=</span><span> </span><a name="ParticleOutput"><a href="Data.Exo.Renderer.ParticleOutput.html#ParticleOutput"><span class="hs-identifier">ParticleOutput</span></a></a><span> </span><span class="hs-special">{</span><span> </span><a name="getParticleOutput"><a href="Data.Exo.Renderer.ParticleOutput.html#getParticleOutput"><span class="hs-identifier">getParticleOutput</span></a></a><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-identifier hs-type">Record</span><span> </span><a href="Data.Exo.Renderer.ParticleOutput.html#ParticleOutputR"><span class="hs-identifier hs-type">ParticleOutputR</span></a><span> </span><span class="hs-special">}</span><span>
+</span><a name="line-33"></a><span class="hs-identifier hs-var">makeWrapped</span><span> </span><span class="hs-char">''ParticleOutput
+
+instance ExoFormat ParticleOutput where
+  eformat n (ParticleOutput r)
+    = unlinePairs $ toPairs
+    $ #__name @= &quot;&#12497;&#12540;&#12486;&#12451;&#12463;&#12523;&#20986;&#21147;&quot;
+    &lt;: #_X @= (r ^. #_X ^. to showt)
+    &lt;: #_Y @= (r ^. #_Y ^. to showt)
+    &lt;: #_Z @= (r ^. #_Z ^. to showt)
+    &lt;: #_&#20986;&#21147;&#38971;&#24230; @= (r ^. #_&#20986;&#21147;&#38971;&#24230; ^. to showt)
+    &lt;: #_&#20986;&#21147;&#36895;&#24230; @= (r ^. #_&#20986;&#21147;&#36895;&#24230; ^. to showt)
+    &lt;: #_&#21152;&#36895;&#24230; @= (r ^. #_&#21152;&#36895;&#24230; ^. to showt)
+    &lt;: #_&#20986;&#21147;&#26041;&#21521; @= (r ^. #_&#20986;&#21147;&#26041;&#21521; ^. to showt)
+    &lt;: #_&#25313;&#25955;&#35282;&#24230; @= (r ^. #_&#25313;&#25955;&#35282;&#24230; ^. to showt)
+    &lt;: #_&#36879;&#36942;&#29575; @= (r ^. #_&#36879;&#36942;&#29575; ^. to showt)
+    &lt;: #_&#36879;&#36942;&#36895;&#24230; @= (r ^. #_&#36879;&#36942;&#36895;&#24230; ^. to showt)
+    &lt;: #_&#25313;&#22823;&#29575; @= (r ^. #_&#25313;&#22823;&#29575; ^. to showt)
+    &lt;: #_&#25313;&#22823;&#36895;&#24230; @= (r ^. #_&#25313;&#22823;&#36895;&#24230; ^. to showt)
+    &lt;: #_&#22238;&#36578;&#35282; @= (r ^. #_&#22238;&#36578;&#35282; ^. to showt)
+    &lt;: #_&#22238;&#36578;&#36895;&#24230; @= (r ^. #_&#22238;&#36578;&#36895;&#24230; ^. to showt)
+    &lt;: #_&#37325;&#21147; @= (r ^. #_&#37325;&#21147; ^. to showt)
+    &lt;: #_&#29983;&#23384;&#26178;&#38291; @= (r ^. #_&#29983;&#23384;&#26178;&#38291; ^. to showt)
+    &lt;: #_&#20986;&#21147;&#26041;&#21521;&#12398;&#22522;&#28310;&#12434;&#31227;&#21205;&#26041;&#21521;&#12395;&#12377;&#12427; @= (r ^. #_&#20986;&#21147;&#26041;&#21521;&#12398;&#22522;&#28310;&#12434;&#31227;&#21205;&#26041;&#21521;&#12395;&#12377;&#12427; ^. to showBin)
+    &lt;: #_&#31227;&#21205;&#31684;&#22258;&#12398;&#24231;&#27161;&#12363;&#12425;&#12521;&#12531;&#12480;&#12512;&#12395;&#20986;&#21147; @= (r ^. #_&#31227;&#21205;&#31684;&#22258;&#12398;&#24231;&#27161;&#12363;&#12425;&#12521;&#12531;&#12480;&#12512;&#12395;&#20986;&#21147; ^. to showBin)
+    &lt;: #_3D&#12521;&#12531;&#12480;&#12512;&#22238;&#36578; @= (r ^. #_3D&#12521;&#12531;&#12480;&#12512;&#22238;&#36578; ^. to showBin)
+    &lt;: #_&#32066;&#20102;&#28857;&#12391;&#20840;&#12390;&#28040;&#12360;&#12427;&#12424;&#12358;&#12395;&#35519;&#25972;&#12377;&#12427; @= (r ^. #_&#32066;&#20102;&#28857;&#12391;&#20840;&#12390;&#28040;&#12360;&#12427;&#12424;&#12358;&#12395;&#35519;&#25972;&#12377;&#12427; ^. to showBin)
+    &lt;: #blend @= (r ^. #blend ^. from enum . to showt)
+    &lt;: emptyRecord
+
+  def = ParticleOutput
+    $ #_X @= 0
+    &lt;: #_Y @= 0
+    &lt;: #_Z @= 0
+    &lt;: #_&#20986;&#21147;&#38971;&#24230; @= 20
+    &lt;: #_&#20986;&#21147;&#36895;&#24230; @= 400
+    &lt;: #_&#21152;&#36895;&#24230; @= 0
+    &lt;: #_&#20986;&#21147;&#26041;&#21521; @= 0
+    &lt;: #_&#25313;&#25955;&#35282;&#24230; @= 30
+    &lt;: #_&#36879;&#36942;&#29575; @= 0
+    &lt;: #_&#36879;&#36942;&#36895;&#24230; @= 0
+    &lt;: #_&#25313;&#22823;&#29575; @= 100
+    &lt;: #_&#25313;&#22823;&#36895;&#24230; @= 0
+    &lt;: #_&#22238;&#36578;&#35282; @= 0
+    &lt;: #_&#22238;&#36578;&#36895;&#24230; @= 0
+    &lt;: #_&#37325;&#21147; @= 0
+    &lt;: #_&#29983;&#23384;&#26178;&#38291; @= 0
+    &lt;: #_&#20986;&#21147;&#26041;&#21521;&#12398;&#22522;&#28310;&#12434;&#31227;&#21205;&#26041;&#21521;&#12395;&#12377;&#12427; @= False
+    &lt;: #_&#31227;&#21205;&#31684;&#22258;&#12398;&#24231;&#27161;&#12363;&#12425;&#12521;&#12531;&#12480;&#12512;&#12395;&#20986;&#21147; @= False
+    &lt;: #_3D&#12521;&#12531;&#12480;&#12512;&#22238;&#36578; @= False
+    &lt;: #_&#32066;&#20102;&#28857;&#12391;&#20840;&#12390;&#28040;&#12360;&#12427;&#12424;&#12358;&#12395;&#35519;&#25972;&#12377;&#12427; @= True
+    &lt;: #blend @= Normal
+    &lt;: emptyRecord
+
+</span></pre></body></html>

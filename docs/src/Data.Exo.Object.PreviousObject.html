@@ -1,0 +1,18 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><link rel="stylesheet" type="text/css" href="style.css" /><script type="text/javascript" src="highlight.js"></script></head><body><pre><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Data</span><span class="hs-operator">.</span><span class="hs-identifier">Exo</span><span class="hs-operator">.</span><span class="hs-identifier">Object</span><span class="hs-operator">.</span><span class="hs-identifier">PreviousObject</span><span> </span><span class="hs-keyword">where</span><span>
+</span><a name="line-2"></a><span>
+</span><a name="line-3"></a><span class="hs-keyword">import</span><span> </span><span class="hs-identifier">Control</span><span class="hs-operator">.</span><span class="hs-identifier">Lens</span><span>
+</span><a name="line-4"></a><span class="hs-keyword">import</span><span> </span><span class="hs-identifier">Data</span><span class="hs-operator">.</span><span class="hs-identifier">Extensible</span><span>
+</span><a name="line-5"></a><span class="hs-keyword">import</span><span> </span><a href="Data.Exo.ExoFormat.html"><span class="hs-identifier">Data</span><span class="hs-operator">.</span><span class="hs-identifier">Exo</span><span class="hs-operator">.</span><span class="hs-identifier">ExoFormat</span></a><span>
+</span><a name="line-6"></a><span>
+</span><a name="line-7"></a><span class="hs-keyword">data</span><span> </span><a name="PreviousObject"><a href="Data.Exo.Object.PreviousObject.html#PreviousObject"><span class="hs-identifier">PreviousObject</span></a></a><span> </span><span class="hs-glyph">=</span><span> </span><a name="PreviousObject"><a href="Data.Exo.Object.PreviousObject.html#PreviousObject"><span class="hs-identifier">PreviousObject</span></a></a><span> </span><span class="hs-special">{</span><span> </span><a name="getPreviousObject"><a href="Data.Exo.Object.PreviousObject.html#getPreviousObject"><span class="hs-identifier">getPreviousObject</span></a></a><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">(</span><span class="hs-special">)</span><span> </span><span class="hs-special">}</span><span>
+</span><a name="line-8"></a><span class="hs-identifier hs-var">makeWrapped</span><span> </span><span class="hs-char">''PreviousObject
+
+instance ExoFormat PreviousObject where
+  eformat n _
+    = unlinePairs $ toPairs
+    $ #__name @= &quot;&#30452;&#21069;&#12458;&#12502;&#12472;&#12455;&#12463;&#12488;&quot;
+    &lt;: emptyRecord
+
+  def = PreviousObject ()
+
+</span></pre></body></html>

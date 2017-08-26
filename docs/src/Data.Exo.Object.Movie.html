@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><link rel="stylesheet" type="text/css" href="style.css" /><script type="text/javascript" src="highlight.js"></script></head><body><pre><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Data</span><span class="hs-operator">.</span><span class="hs-identifier">Exo</span><span class="hs-operator">.</span><span class="hs-identifier">Object</span><span class="hs-operator">.</span><span class="hs-identifier">Movie</span><span> </span><span class="hs-keyword">where</span><span>
+</span><a name="line-2"></a><span>
+</span><a name="line-3"></a><span class="hs-keyword">import</span><span> </span><span class="hs-identifier">Control</span><span class="hs-operator">.</span><span class="hs-identifier">Lens</span><span>
+</span><a name="line-4"></a><span class="hs-keyword">import</span><span> </span><span class="hs-identifier">Data</span><span class="hs-operator">.</span><span class="hs-identifier">Extensible</span><span>
+</span><a name="line-5"></a><span class="hs-keyword">import</span><span> </span><a href="Data.Exo.ExoFormat.html"><span class="hs-identifier">Data</span><span class="hs-operator">.</span><span class="hs-identifier">Exo</span><span class="hs-operator">.</span><span class="hs-identifier">ExoFormat</span></a><span>
+</span><a name="line-6"></a><span>
+</span><a name="line-7"></a><span class="hs-keyword">type</span><span> </span><a name="MovieR"><a href="Data.Exo.Object.Movie.html#MovieR"><span class="hs-identifier">MovieR</span></a></a><span> </span><span class="hs-glyph">=</span><span>
+</span><a name="line-8"></a><span>  </span><span class="hs-special">[</span><span> </span><span class="hs-string">&quot;_&#20877;&#29983;&#20301;&#32622;&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Double</span><span>
+</span><a name="line-9"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;_&#20877;&#29983;&#36895;&#24230;&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Double</span><span>
+</span><a name="line-10"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;_&#12523;&#12540;&#12503;&#20877;&#29983;&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Bool</span><span>
+</span><a name="line-11"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;_&#12450;&#12523;&#12501;&#12449;&#12481;&#12515;&#12531;&#12493;&#12523;&#12434;&#35501;&#12415;&#36796;&#12416;&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Bool</span><span>
+</span><a name="line-12"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;file&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">FilePath</span><span>
+</span><a name="line-13"></a><span>  </span><span class="hs-special">]</span><span>
+</span><a name="line-14"></a><span>
+</span><a name="line-15"></a><span class="hs-keyword">newtype</span><span> </span><a name="Movie"><a href="Data.Exo.Object.Movie.html#Movie"><span class="hs-identifier">Movie</span></a></a><span> </span><span class="hs-glyph">=</span><span> </span><a name="Movie"><a href="Data.Exo.Object.Movie.html#Movie"><span class="hs-identifier">Movie</span></a></a><span> </span><span class="hs-special">{</span><span> </span><a name="getMovie"><a href="Data.Exo.Object.Movie.html#getMovie"><span class="hs-identifier">getMovie</span></a></a><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-identifier hs-type">Record</span><span> </span><a href="Data.Exo.Object.Movie.html#MovieR"><span class="hs-identifier hs-type">MovieR</span></a><span> </span><span class="hs-special">}</span><span>
+</span><a name="line-16"></a><span class="hs-identifier hs-var">makeWrapped</span><span> </span><span class="hs-char">''Movie
+
+instance ExoFormat Movie where
+  eformat n (Movie r)
+    = unlinePairs $ toPairs
+    $ #__name @= &quot;&#21205;&#30011;&#12501;&#12449;&#12452;&#12523;&quot;
+    &lt;: #_&#20877;&#29983;&#20301;&#32622; @= (r ^. #_&#20877;&#29983;&#20301;&#32622; ^. to showt)
+    &lt;: #_&#20877;&#29983;&#36895;&#24230; @= (r ^. #_&#20877;&#29983;&#36895;&#24230; ^. to showt)
+    &lt;: #_&#12523;&#12540;&#12503;&#20877;&#29983; @= (r ^. #_&#12523;&#12540;&#12503;&#20877;&#29983; ^. to showBin)
+    &lt;: #_&#12450;&#12523;&#12501;&#12449;&#12481;&#12515;&#12531;&#12493;&#12523;&#12434;&#35501;&#12415;&#36796;&#12416; @= (r ^. #_&#12450;&#12523;&#12501;&#12449;&#12481;&#12515;&#12531;&#12493;&#12523;&#12434;&#35501;&#12415;&#36796;&#12416; ^. to showBin)
+    &lt;: #file @= (r ^. #file ^. to showt)
+    &lt;: emptyRecord
+  
+  def = Movie
+    $ #_&#20877;&#29983;&#20301;&#32622; @= 0
+    &lt;: #_&#20877;&#29983;&#36895;&#24230; @= 100
+    &lt;: #_&#12523;&#12540;&#12503;&#20877;&#29983; @= False
+    &lt;: #_&#12450;&#12523;&#12501;&#12449;&#12481;&#12515;&#12531;&#12493;&#12523;&#12434;&#35501;&#12415;&#36796;&#12416; @= False
+    &lt;: #file @= &quot;&quot;
+    &lt;: emptyRecord
+
+</span></pre></body></html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><link rel="stylesheet" type="text/css" href="style.css" /><script type="text/javascript" src="highlight.js"></script></head><body><pre><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Data</span><span class="hs-operator">.</span><span class="hs-identifier">Exo</span><span class="hs-operator">.</span><span class="hs-identifier">TLObject</span><span> </span><span class="hs-keyword">where</span><span>
+</span><a name="line-2"></a><span>
+</span><a name="line-3"></a><span class="hs-keyword">import</span><span> </span><a href="Data.Exo.ExoFormat.html"><span class="hs-identifier">Data</span><span class="hs-operator">.</span><span class="hs-identifier">Exo</span><span class="hs-operator">.</span><span class="hs-identifier">ExoFormat</span></a><span>
+</span><a name="line-4"></a><span class="hs-keyword">import</span><span> </span><a href="Data.Exo.Object.html"><span class="hs-identifier">Data</span><span class="hs-operator">.</span><span class="hs-identifier">Exo</span><span class="hs-operator">.</span><span class="hs-identifier">Object</span></a><span>
+</span><a name="line-5"></a><span class="hs-keyword">import</span><span> </span><a href="Data.Exo.Renderer.html"><span class="hs-identifier">Data</span><span class="hs-operator">.</span><span class="hs-identifier">Exo</span><span class="hs-operator">.</span><span class="hs-identifier">Renderer</span></a><span>
+</span><a name="line-6"></a><span>
+</span><a name="line-7"></a><span class="hs-keyword">import</span><span> </span><span class="hs-identifier">Control</span><span class="hs-operator">.</span><span class="hs-identifier">Lens</span><span> </span><span class="hs-keyword">hiding</span><span> </span><span class="hs-special">(</span><span class="hs-special">(</span><span class="hs-operator hs-var">...</span><span class="hs-special">)</span><span class="hs-special">)</span><span>
+</span><a name="line-8"></a><span class="hs-keyword">import</span><span> </span><span class="hs-identifier">Data</span><span class="hs-operator">.</span><span class="hs-identifier">Extensible</span><span>
+</span><a name="line-9"></a><span class="hs-keyword">import</span><span> </span><span class="hs-identifier">Data</span><span class="hs-operator">.</span><span class="hs-identifier">Text</span><span class="hs-operator">.</span><span class="hs-identifier">Format</span><span> </span><span class="hs-special">(</span><span class="hs-identifier hs-var">format</span><span class="hs-special">)</span><span>
+</span><a name="line-10"></a><span class="hs-keyword">import</span><span> </span><span class="hs-keyword">qualified</span><span> </span><span class="hs-identifier">Data</span><span class="hs-operator">.</span><span class="hs-identifier">Text</span><span class="hs-operator">.</span><span class="hs-identifier">Lazy</span><span> </span><span class="hs-keyword">as</span><span> </span><span class="hs-identifier">T</span><span>
+</span><a name="line-11"></a><span class="hs-keyword">import</span><span> </span><span class="hs-identifier">Numeric</span><span class="hs-operator">.</span><span class="hs-identifier">Interval</span><span>
+</span><a name="line-12"></a><span class="hs-keyword">import</span><span> </span><span class="hs-identifier">Numeric</span><span class="hs-operator">.</span><span class="hs-identifier">Natural</span><span>
+</span><a name="line-13"></a><span class="hs-keyword">import</span><span> </span><span class="hs-identifier">Linear</span><span class="hs-operator">.</span><span class="hs-identifier">V2</span><span>
+</span><a name="line-14"></a><span>
+</span><a name="line-15"></a><span class="hs-keyword">data</span><span> </span><a name="Resolution"><a href="Data.Exo.TLObject.html#Resolution"><span class="hs-identifier">Resolution</span></a></a><span> </span><span class="hs-glyph">=</span><span> </span><a name="VGA"><a href="Data.Exo.TLObject.html#VGA"><span class="hs-identifier">VGA</span></a></a><span> </span><span class="hs-glyph">|</span><span> </span><a name="HD"><a href="Data.Exo.TLObject.html#HD"><span class="hs-identifier">HD</span></a></a><span> </span><span class="hs-glyph">|</span><span> </span><a name="FullHD"><a href="Data.Exo.TLObject.html#FullHD"><span class="hs-identifier">FullHD</span></a></a><span> </span><span class="hs-glyph">|</span><span> </span><a name="Niconico"><a href="Data.Exo.TLObject.html#Niconico"><span class="hs-identifier">Niconico</span></a></a><span> </span><span class="hs-glyph">|</span><span> </span><a name="Custom"><a href="Data.Exo.TLObject.html#Custom"><span class="hs-identifier">Custom</span></a></a><span> </span><span class="hs-special">(</span><span class="hs-identifier hs-type">V2</span><span> </span><span class="hs-identifier hs-type">Int</span><span class="hs-special">)</span><span>
+</span><a name="line-16"></a><span>
+</span><a name="line-17"></a><span class="hs-identifier">_resolution</span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-identifier hs-type">Getter</span><span> </span><a href="Data.Exo.TLObject.html#Resolution"><span class="hs-identifier hs-type">Resolution</span></a><span> </span><span class="hs-special">(</span><span class="hs-identifier hs-type">V2</span><span> </span><span class="hs-identifier hs-type">Int</span><span class="hs-special">)</span><span>
+</span><a name="line-18"></a><a name="_resolution"><a href="Data.Exo.TLObject.html#_resolution"><span class="hs-identifier">_resolution</span></a></a><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-identifier hs-var">to</span><span> </span><span class="hs-operator hs-var">$</span><span> </span><span class="hs-glyph">\</span><span class="hs-keyword">case</span><span>
+</span><a name="line-19"></a><span>  </span><a href="Data.Exo.TLObject.html#VGA"><span class="hs-identifier hs-var">VGA</span></a><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="hs-identifier hs-var">V2</span><span> </span><span class="hs-number">640</span><span> </span><span class="hs-number">480</span><span>
+</span><a name="line-20"></a><span>  </span><a href="Data.Exo.TLObject.html#HD"><span class="hs-identifier hs-var">HD</span></a><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="hs-identifier hs-var">V2</span><span> </span><span class="hs-number">1280</span><span> </span><span class="hs-number">720</span><span>
+</span><a name="line-21"></a><span>  </span><a href="Data.Exo.TLObject.html#FullHD"><span class="hs-identifier hs-var">FullHD</span></a><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="hs-identifier hs-var">V2</span><span> </span><span class="hs-number">1920</span><span> </span><span class="hs-number">1080</span><span>
+</span><a name="line-22"></a><span>  </span><a href="Data.Exo.TLObject.html#Niconico"><span class="hs-identifier hs-var">Niconico</span></a><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="hs-identifier hs-var">V2</span><span> </span><span class="hs-number">960</span><span> </span><span class="hs-number">540</span><span>
+</span><a name="line-23"></a><span>  </span><a href="Data.Exo.TLObject.html#Custom"><span class="hs-identifier hs-var">Custom</span></a><span> </span><a name="local-6989586621679590274"><a href="#local-6989586621679590274"><span class="hs-identifier">v</span></a></a><span> </span><span class="hs-glyph">-&gt;</span><span> </span><a href="#local-6989586621679590274"><span class="hs-identifier hs-var">v</span></a><span>
+</span><a name="line-24"></a><span>
+</span><a name="line-25"></a><span>
+</span><a name="line-26"></a><span class="hs-keyword">type</span><span> </span><a name="TLObjectR"><a href="Data.Exo.TLObject.html#TLObjectR"><span class="hs-identifier">TLObjectR</span></a></a><span> </span><span class="hs-glyph">=</span><span>
+</span><a name="line-27"></a><span>  </span><span class="hs-special">[</span><span> </span><span class="hs-string">&quot;start&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Natural</span><span>
+</span><a name="line-28"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;end&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Natural</span><span>
+</span><a name="line-29"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;layer&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Int</span><span>
+</span><a name="line-30"></a><span class="hs-comment">--  , &quot;overlay&quot; &gt;: Int &#12371;&#12428;&#12394;&#12354;&#12395;&#65311;</span><span>
+</span><a name="line-31"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;camera&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Bool</span><span>
+</span><a name="line-32"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;clipping&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Bool</span><span>
+</span><a name="line-33"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;object&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Variant</span><span>
+</span><a name="line-34"></a><span>    </span><span class="hs-special">[</span><span> </span><span class="hs-string">&quot;movie&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><a href="Data.Exo.Object.Movie.html#Movie"><span class="hs-identifier hs-type">Movie</span></a><span>
+</span><a name="line-35"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;sound&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><a href="Data.Exo.Object.Sound.html#Sound"><span class="hs-identifier hs-type">Sound</span></a><span>
+</span><a name="line-36"></a><span>    </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;figure&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><a href="Data.Exo.Object.Figure.html#Figure"><span class="hs-identifier hs-type">Figure</span></a><span>
+</span><a name="line-37"></a><span>    </span><span class="hs-special">]</span><span>
+</span><a name="line-38"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;renderer&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><a href="Data.Exo.Renderer.StdRenderer.html#StdRenderer"><span class="hs-identifier hs-type">StdRenderer</span></a><span>
+</span><a name="line-39"></a><span>  </span><span class="hs-special">]</span><span>
+</span><a name="line-40"></a><span>
+</span><a name="line-41"></a><span class="hs-keyword">newtype</span><span> </span><a name="TLObject"><a href="Data.Exo.TLObject.html#TLObject"><span class="hs-identifier">TLObject</span></a></a><span> </span><span class="hs-glyph">=</span><span> </span><a name="TLObject"><a href="Data.Exo.TLObject.html#TLObject"><span class="hs-identifier">TLObject</span></a></a><span> </span><span class="hs-special">{</span><span> </span><a name="getTLObject"><a href="Data.Exo.TLObject.html#getTLObject"><span class="hs-identifier">getTLObject</span></a></a><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-identifier hs-type">Record</span><span> </span><a href="Data.Exo.TLObject.html#TLObjectR"><span class="hs-identifier hs-type">TLObjectR</span></a><span> </span><span class="hs-special">}</span><span>
+</span><a name="line-42"></a><span class="hs-identifier hs-var">makeWrapped</span><span> </span><span class="hs-char">''TLObject
+
+instance ExoFormat TLObject where
+  eformat n (TLObject r)
+    = T.append (format &quot;[{}]\n&quot; [n]) $ T.unlines $ fmap (uncurry fromPair) $ toPairs
+    $ #start @= (r ^. #start ^. to showt)
+    &lt;: #end @= (r ^. #end ^. to showt)
+    &lt;: #layer @= (r ^. #layer ^. to showt)
+    &lt;: #overlay @= &quot;1&quot;
+    &lt;: #camera @= (r ^. #camera ^. to showBin)
+    &lt;: #clipping @= (r ^. #clipping ^. to showOpt)
+    &lt;: #object @= matchField mat (r ^. #object)
+    &lt;: #renderer @= eformat n (r ^. #renderer)
+    &lt;: emptyRecord
+
+    where
+      mat :: RecordOf (Match Identity T.Text) [&quot;movie&quot; &gt;: Movie, &quot;sound&quot; &gt;: Sound, &quot;figure&quot; &gt;: Figure]
+      mat = #movie @= eformat n
+        &lt;: #sound @= eformat n
+        &lt;: #figure @= eformat n
+        &lt;: nil
+      
+      fromPair :: T.Text -&gt; T.Text -&gt; T.Text
+      fromPair &quot;clipping&quot; v | v == &quot;&quot; = &quot;&quot;
+      fromPair &quot;object&quot; v = format &quot;[{}.0]\n{}&quot; [showt n, v]
+      fromPair &quot;renderer&quot; v = format &quot;[{}.1]\n{}&quot; [showt n, v]
+      fromPair k v = format &quot;{}={}&quot; [k, v]
+
+  def = TLObject
+    $ #start @= 1
+    &lt;: #end @= 2
+    &lt;: #layer @= 1
+    &lt;: #camera @= False
+    &lt;: #clipping @= False
+    &lt;: #object @= undefined
+    &lt;: #renderer @= def
+    &lt;: emptyRecord
+
+_TLinterval :: Lens' TLObject (Interval Natural)
+_TLinterval = lens
+  (\r -&gt; (r ^. _Wrapped . #start) ... (r ^. _Wrapped . #end))
+  (\r int -&gt; r &amp; _Wrapped . #start .~ inf int &amp; _Wrapped . #end .~ sup int)
+
+</span></pre></body></html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><link rel="stylesheet" type="text/css" href="style.css" /><script type="text/javascript" src="highlight.js"></script></head><body><pre><span class="hs-pragma">{-# LANGUAGE MagicHash #-}</span><span>
+</span><a name="line-2"></a><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Data</span><span class="hs-operator">.</span><span class="hs-identifier">Exo</span><span class="hs-operator">.</span><span class="hs-identifier">Object</span><span class="hs-operator">.</span><span class="hs-identifier">Scene</span><span> </span><span class="hs-keyword">where</span><span>
+</span><a name="line-3"></a><span>
+</span><a name="line-4"></a><span class="hs-keyword">import</span><span> </span><span class="hs-identifier">Control</span><span class="hs-operator">.</span><span class="hs-identifier">Lens</span><span>
+</span><a name="line-5"></a><span class="hs-keyword">import</span><span> </span><span class="hs-identifier">Data</span><span class="hs-operator">.</span><span class="hs-identifier">Extensible</span><span>
+</span><a name="line-6"></a><span class="hs-keyword">import</span><span> </span><a href="Data.Exo.ExoFormat.html"><span class="hs-identifier">Data</span><span class="hs-operator">.</span><span class="hs-identifier">Exo</span><span class="hs-operator">.</span><span class="hs-identifier">ExoFormat</span></a><span>
+</span><a name="line-7"></a><span class="hs-keyword">import</span><span> </span><span class="hs-identifier">GHC</span><span class="hs-operator">.</span><span class="hs-identifier">OverloadedLabels</span><span>
+</span><a name="line-8"></a><span class="hs-keyword">import</span><span> </span><span class="hs-identifier">GHC</span><span class="hs-operator">.</span><span class="hs-identifier">Prim</span><span>
+</span><a name="line-9"></a><span>
+</span><a name="line-10"></a><span class="hs-keyword">type</span><span> </span><a name="SceneR"><a href="Data.Exo.Object.Scene.html#SceneR"><span class="hs-identifier">SceneR</span></a></a><span> </span><span class="hs-glyph">=</span><span>
+</span><a name="line-11"></a><span>  </span><span class="hs-special">[</span><span> </span><span class="hs-string">&quot;_&#20877;&#29983;&#20301;&#32622;&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Int</span><span>
+</span><a name="line-12"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;_&#20877;&#29983;&#36895;&#24230;&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Double</span><span>
+</span><a name="line-13"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;_&#12523;&#12540;&#12503;&#20877;&#29983;&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Bool</span><span>
+</span><a name="line-14"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;(null)&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Int</span><span>
+</span><a name="line-15"></a><span>  </span><span class="hs-special">]</span><span>
+</span><a name="line-16"></a><span>
+</span><a name="line-17"></a><span class="hs-keyword">newtype</span><span> </span><a name="Scene"><a href="Data.Exo.Object.Scene.html#Scene"><span class="hs-identifier">Scene</span></a></a><span> </span><span class="hs-glyph">=</span><span> </span><a name="Scene"><a href="Data.Exo.Object.Scene.html#Scene"><span class="hs-identifier">Scene</span></a></a><span> </span><span class="hs-special">{</span><span> </span><a name="getScene"><a href="Data.Exo.Object.Scene.html#getScene"><span class="hs-identifier">getScene</span></a></a><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-identifier hs-type">Record</span><span> </span><a href="Data.Exo.Object.Scene.html#SceneR"><span class="hs-identifier hs-type">SceneR</span></a><span> </span><span class="hs-special">}</span><span>
+</span><a name="line-18"></a><span class="hs-identifier hs-var">makeWrapped</span><span> </span><span class="hs-char">''Scene
+
+instance ExoFormat Scene where
+  eformat n (Scene r)
+    = unlinePairs $ toPairs
+    $ #__name @= &quot;&#12471;&#12540;&#12531;&quot;
+    &lt;: #_&#20877;&#29983;&#20301;&#32622; @= (r ^. #_&#20877;&#29983;&#20301;&#32622; ^. to showt)
+    &lt;: #_&#20877;&#29983;&#36895;&#24230; @= (r ^. #_&#20877;&#29983;&#36895;&#24230; ^. to showt)
+    &lt;: #_&#12523;&#12540;&#12503;&#20877;&#29983; @= (r ^. #_&#12523;&#12540;&#12503;&#20877;&#29983; ^. to showt)
+    &lt;: (fromLabel @&quot;(null)&quot; proxy#) @= (r ^. (fromLabel @&quot;(null)&quot; proxy#) ^. to showt)
+    &lt;: emptyRecord
+
+  def = Scene
+    $ #_&#20877;&#29983;&#20301;&#32622; @= 1
+    &lt;: #_&#20877;&#29983;&#36895;&#24230; @= 100
+    &lt;: #_&#12523;&#12540;&#12503;&#20877;&#29983; @= False
+    &lt;: (fromLabel @&quot;(null)&quot; proxy#) @= 1
+    &lt;: emptyRecord
+
+_scene :: Lens' Scene Int
+_scene = _Wrapped . (fromLabel @&quot;(null)&quot; proxy#)
+
+</span></pre></body></html>
