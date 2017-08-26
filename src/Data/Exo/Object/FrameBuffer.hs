@@ -4,6 +4,12 @@ import Control.Lens
 import Data.Extensible
 import Data.Exo.ExoFormat
 
+-- |
+-- @
+-- type FrameBufferR =
+--   '[ "_フレームバッファをクリア" >: Bool
+--   ]
+-- @
 type FrameBufferR =
   '[ "_フレームバッファをクリア" >: Bool
   ]

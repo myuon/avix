@@ -6,7 +6,12 @@ import Data.Exo.Types
 import Data.Exo.ExoFormat
 import qualified Data.Text.Lazy as T
 
-data RenderType = RenderNormal | Shaded | ShadedLight | Bordered | BorderedThin
+data RenderType
+  = RenderNormal  -- ^ 標準文字
+  | Shaded  -- ^ 影付き文字
+  | ShadedLight  -- ^ 影付き文字(薄)
+  | Bordered  -- ^ 縁取り文字
+  | BorderedThin  -- ^ 縁取り文字(細)
   deriving (Eq, Enum, Show)
 
 _renderType :: Iso' RenderType T.Text
@@ -19,8 +24,16 @@ _renderType = isoGraph dic where
     , (BorderedThin, "縁取り文字(細)")
     ]
 
-data Vertical = VTop | VMiddle | VBottom deriving (Eq, Enum, Show)
-data Horizontal = HLeft | HCenter | HRight deriving (Eq, Enum, Show)
+data Vertical
+  = VTop  -- ^ [上]
+  | VMiddle  -- ^ [中]
+  | VBottom  -- ^ [下]
+  deriving (Eq, Enum, Show)
+data Horizontal
+  = HLeft  -- ^ 左寄せ
+  | HCenter  -- ^ 中央寄せ
+  | HRight  -- ^ 右寄せ
+  deriving (Eq, Enum, Show)
 
 type TextAlign = Record
   [ "isVertical" >: Bool
@@ -33,6 +46,30 @@ _textAlign = to $ \ta -> if not (ta ^. #isVertical)
   then 3 * (ta ^. #vertical ^. from enum) + (ta ^. #horizontal ^. from enum)
   else 9 + 3 * (2 - ta ^. #horizontal ^. from enum) + (ta ^. #vertical ^. from enum)
 
+-- |
+-- @
+-- type TextR =
+--   [ "_サイズ" >: Int
+--   , "_表示速度" >: Int
+--   , "_文字毎に個別オブジェクト" >: Bool
+--   , "_移動座標上に表示する" >: Bool
+--   , "_自動スクロール" >: Bool
+--   , "_B" >: Bool  -- 太字
+--   , "_I" >: Bool  -- イタリック
+--   , "_type" >: RenderType  -- 文字描画モード
+--   , "autoadjust" >: Bool  -- オブジェクトの長さを自動調節
+--   , "soft" >: Bool  -- 滑らかにする
+--   , "monospace" >: Bool  -- 等間隔モード
+--   , "align" >: TextAlign  -- テキスト寄せ
+--   , "spacing_x" >: Int  -- 字間
+--   , "spacing_y" >: Int  -- 行間
+--   , "precision" >: Bool -- 高精度モード
+--   , "color" >: RGB  -- 文字色の設定
+--   , "color2" >: RGB  -- 影・縁色の設定
+--   , "font" >: String  -- フォント
+--   , "text" >: String
+--   ]
+-- @
 type TextR =
   [ "_サイズ" >: Int
   , "_表示速度" >: Int

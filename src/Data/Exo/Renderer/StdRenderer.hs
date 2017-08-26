@@ -5,6 +5,18 @@ import Data.Extensible
 import Data.Exo.Types
 import Data.Exo.ExoFormat
 
+-- |
+-- @
+-- type StdRendererR =
+--   [ "_X" >: Double
+--   , "_Y" >: Double
+--   , "_Z" >: Double
+--   , "_拡大率" >: Double
+--   , "_透明度" >: Double
+--   , "_回転" >: Double
+--   , "blend" >: BlendMode
+--   ]
+-- @
 type StdRendererR =
   [ "_X" >: Double
   , "_Y" >: Double

@@ -1,10 +1,14 @@
 module Data.Exo
-  ( module M
+  ( module Data.Exo.ExoFormat
+  , module Data.Exo.Object
+  , module Data.Exo.Renderer
+  , module Data.Exo.TLObject
+  , module Data.Exo.Exedit
   ) where
 
-import Data.Exo.ExoFormat as M
-import Data.Exo.Object as M
-import Data.Exo.Renderer as M
-import Data.Exo.TLObject as M
-import Data.Exo.Exedit as M
+import Data.Exo.ExoFormat
+import Data.Exo.Object
+import Data.Exo.Renderer
+import Data.Exo.TLObject
+import Data.Exo.Exedit
 

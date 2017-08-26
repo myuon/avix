@@ -8,6 +8,25 @@ import Data.Exo.ExoFormat
 data SoundWaveType = Type1 | Type2 | Type3 | Type4 | Type5
   deriving (Eq, Enum, Show)
 
+-- |
+-- @
+-- type SoundWaveR =
+--   [ "_横幅" >: Int
+--   , "_高さ" >: Int
+--   , "_音量" >: Double
+--   , "_再生位置" >: Double
+--   , "_編集全体の音声を元にする" >: Bool
+--   , "file" >: FilePath
+--   , "_type" >: SoundWaveType
+--   , "mode" >: Bool  -- 波形タイプ(0/1) ← チェックボックスにはしない理由があるの？
+--   , "res_w" >: Int  -- 横解像度
+--   , "res_h" >: Int  -- 縦解像度
+--   , "pad_w" >: Int  -- 横スペース(%)
+--   , "pad_h" >: Int  -- 縦スペース(%)
+--   , "color" >: RGB  -- 波形の色
+--   , "mirror" >: Int  -- ミラー
+--   ]
+-- @
 type SoundWaveR =
   [ "_横幅" >: Int
   , "_高さ" >: Int
@@ -16,14 +35,14 @@ type SoundWaveR =
   , "_編集全体の音声を元にする" >: Bool
   , "file" >: FilePath
   , "_type" >: SoundWaveType
-  , "mode" >: Bool  -- 波形タイプ(0/1) ← チェックボックスにはしない理由があるの？
-  , "res_w" >: Int  -- 横解像度
-  , "res_h" >: Int  -- 縦解像度
-  , "pad_w" >: Int  -- 横スペース(%)
-  , "pad_h" >: Int  -- 縦スペース(%)
-  , "color" >: RGB  -- 波形の色
+  , "mode" >: Bool
+  , "res_w" >: Int
+  , "res_h" >: Int
+  , "pad_w" >: Int
+  , "pad_h" >: Int
+  , "color" >: RGB
 --  , "sample_n" >: _ ← なにこれ
-  , "mirror" >: Int  -- ミラー
+  , "mirror" >: Int
   ]
 
 newtype SoundWave = SoundWave { getSoundWave :: Record SoundWaveR }

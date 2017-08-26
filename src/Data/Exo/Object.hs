@@ -1,16 +1,34 @@
 module Data.Exo.Object
-  ( module M
+  ( -- * 動画ファイル
+    module Data.Exo.Object.Movie
+    -- * 画像ファイル
+  , module Data.Exo.Object.Image
+    -- * テキスト
+  , module Data.Exo.Object.Text
+    -- * 図形
+  , module Data.Exo.Object.Figure
+    -- * フレームバッファ
+  , module Data.Exo.Object.FrameBuffer
+    -- * 音声波形表示
+  , module Data.Exo.Object.SoundWave
+    -- * シーン
+  , module Data.Exo.Object.Scene
+    -- * 直前オブジェクト
+  , module Data.Exo.Object.PreviousObject
+    -- * カスタムオブジェクト
+  , module Data.Exo.Object.CustomObject
+    -- * 音声ファイル
+  , module Data.Exo.Object.Sound
   ) where
 
-import Data.Exo.Object.Movie as M  -- 動画ファイル
-import Data.Exo.Object.Image as M  -- 画像ファイル
-import Data.Exo.Object.Text as M  -- テキスト
-import Data.Exo.Object.Figure as M  -- 図形
-import Data.Exo.Object.FrameBuffer as M  -- フレームバッファ
-import Data.Exo.Object.SoundWave as M  -- 音声波形表示
-import Data.Exo.Object.Scene as M  -- シーン
-import Data.Exo.Object.PreviousObject as M  -- 直前オブジェクト
-import Data.Exo.Object.CustomObject as M  -- カスタムオブジェクト
-
-import Data.Exo.Object.Sound as M  -- 音声ファイル
+import Data.Exo.Object.Movie
+import Data.Exo.Object.Image
+import Data.Exo.Object.Text
+import Data.Exo.Object.Figure
+import Data.Exo.Object.FrameBuffer
+import Data.Exo.Object.SoundWave
+import Data.Exo.Object.Scene
+import Data.Exo.Object.PreviousObject
+import Data.Exo.Object.CustomObject
+import Data.Exo.Object.Sound
 

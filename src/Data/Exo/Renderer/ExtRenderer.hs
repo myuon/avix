@@ -5,6 +5,25 @@ import Data.Extensible
 import Data.Exo.Types
 import Data.Exo.ExoFormat
 
+-- |
+-- @
+-- type ExtRendererR =
+--   [ "_X" >: Double
+--   , "_Y" >: Double
+--   , "_Z" >: Double
+--   , "_拡大率" >: Double
+--   , "_透明度" >: Double
+--   , "_縦横比" >: Double
+--   , "_X軸回転" >: Double
+--   , "_Y軸回転" >: Double
+--   , "_Z軸回転" >: Double
+--   , "_中心X" >: Double
+--   , "_中心Y" >: Double
+--   , "_中心Z" >: Double
+--   , "_裏面を表示しない" >: Bool
+--   , "blend" >: BlendMode
+--   ]
+-- @
 type ExtRendererR =
   [ "_X" >: Double
   , "_Y" >: Double

@@ -14,6 +14,17 @@ import Linear.V2
 
 data Resolution = VGA | HD | FullHD | Niconico | Custom (V2 Int)
 
+-- |
+-- >>> VGA ^. _resolution
+-- V2 640 480
+-- >>> HD ^. _resolution
+-- V2 1280 720
+-- >>> FullHD ^. _resolution
+-- V2 1920 1080
+-- >>> Niconico ^. _resolution
+-- V2 960 540
+-- >>> (Custom v) ^. _resolution
+-- v
 _resolution :: Getter Resolution (V2 Int)
 _resolution = to $ \case
   VGA -> V2 640 480
@@ -38,6 +49,10 @@ type TLObjectR =
   , "renderer" >: StdRenderer
   ]
 
+-- |
+-- === Example
+--
+-- > def & #object .~ embed (#movie @= def)
 newtype TLObject = TLObject { getTLObject :: Record TLObjectR }
 makeWrapped ''TLObject
 
@@ -77,6 +92,12 @@ instance ExoFormat TLObject where
     <: #renderer @= def
     <: emptyRecord
 
+-- |
+-- 'Interval' of TLObject: [start, end]
+--
+-- @
+-- 'TLObject' r ^. _TLinterval == (r ^. #start ... r ^. #end)
+-- @
 _TLinterval :: Lens' TLObject (Interval Natural)
 _TLinterval = lens
   (\r -> (r ^. _Wrapped . #start) ... (r ^. _Wrapped . #end))

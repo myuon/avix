@@ -7,15 +7,24 @@
 </span><a name="line-7"></a><span class="hs-keyword">import</span><span> </span><span class="hs-identifier">GHC</span><span class="hs-operator">.</span><span class="hs-identifier">OverloadedLabels</span><span>
 </span><a name="line-8"></a><span class="hs-keyword">import</span><span> </span><span class="hs-identifier">GHC</span><span class="hs-operator">.</span><span class="hs-identifier">Prim</span><span>
 </span><a name="line-9"></a><span>
-</span><a name="line-10"></a><span class="hs-keyword">type</span><span> </span><a name="SceneR"><a href="Data.Exo.Object.Scene.html#SceneR"><span class="hs-identifier">SceneR</span></a></a><span> </span><span class="hs-glyph">=</span><span>
-</span><a name="line-11"></a><span>  </span><span class="hs-special">[</span><span> </span><span class="hs-string">&quot;_&#20877;&#29983;&#20301;&#32622;&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Int</span><span>
-</span><a name="line-12"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;_&#20877;&#29983;&#36895;&#24230;&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Double</span><span>
-</span><a name="line-13"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;_&#12523;&#12540;&#12503;&#20877;&#29983;&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Bool</span><span>
-</span><a name="line-14"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;(null)&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Int</span><span>
-</span><a name="line-15"></a><span>  </span><span class="hs-special">]</span><span>
-</span><a name="line-16"></a><span>
-</span><a name="line-17"></a><span class="hs-keyword">newtype</span><span> </span><a name="Scene"><a href="Data.Exo.Object.Scene.html#Scene"><span class="hs-identifier">Scene</span></a></a><span> </span><span class="hs-glyph">=</span><span> </span><a name="Scene"><a href="Data.Exo.Object.Scene.html#Scene"><span class="hs-identifier">Scene</span></a></a><span> </span><span class="hs-special">{</span><span> </span><a name="getScene"><a href="Data.Exo.Object.Scene.html#getScene"><span class="hs-identifier">getScene</span></a></a><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-identifier hs-type">Record</span><span> </span><a href="Data.Exo.Object.Scene.html#SceneR"><span class="hs-identifier hs-type">SceneR</span></a><span> </span><span class="hs-special">}</span><span>
-</span><a name="line-18"></a><span class="hs-identifier hs-var">makeWrapped</span><span> </span><span class="hs-char">''Scene
+</span><a name="line-10"></a><span class="hs-comment">-- |</span><span>
+</span><a name="line-11"></a><span class="hs-comment">-- @</span><span>
+</span><a name="line-12"></a><span class="hs-comment">-- type SceneR =</span><span>
+</span><a name="line-13"></a><span class="hs-comment">--   [ &quot;_&#20877;&#29983;&#20301;&#32622;&quot; &gt;: Int</span><span>
+</span><a name="line-14"></a><span class="hs-comment">--   , &quot;_&#20877;&#29983;&#36895;&#24230;&quot; &gt;: Double</span><span>
+</span><a name="line-15"></a><span class="hs-comment">--   , &quot;_&#12523;&#12540;&#12503;&#20877;&#29983;&quot; &gt;: Bool</span><span>
+</span><a name="line-16"></a><span class="hs-comment">--   , &quot;(null)&quot; &gt;: Int  -- &#12471;&#12540;&#12531;</span><span>
+</span><a name="line-17"></a><span class="hs-comment">--   ]</span><span>
+</span><a name="line-18"></a><span class="hs-comment">-- @</span><span>
+</span><a name="line-19"></a><span class="hs-keyword">type</span><span> </span><a name="SceneR"><a href="Data.Exo.Object.Scene.html#SceneR"><span class="hs-identifier">SceneR</span></a></a><span> </span><span class="hs-glyph">=</span><span>
+</span><a name="line-20"></a><span>  </span><span class="hs-special">[</span><span> </span><span class="hs-string">&quot;_&#20877;&#29983;&#20301;&#32622;&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Int</span><span>
+</span><a name="line-21"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;_&#20877;&#29983;&#36895;&#24230;&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Double</span><span>
+</span><a name="line-22"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;_&#12523;&#12540;&#12503;&#20877;&#29983;&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Bool</span><span>
+</span><a name="line-23"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;(null)&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Int</span><span>
+</span><a name="line-24"></a><span>  </span><span class="hs-special">]</span><span>
+</span><a name="line-25"></a><span>
+</span><a name="line-26"></a><span class="hs-keyword">newtype</span><span> </span><a name="Scene"><a href="Data.Exo.Object.Scene.html#Scene"><span class="hs-identifier">Scene</span></a></a><span> </span><span class="hs-glyph">=</span><span> </span><a name="Scene"><a href="Data.Exo.Object.Scene.html#Scene"><span class="hs-identifier">Scene</span></a></a><span> </span><span class="hs-special">{</span><span> </span><a name="getScene"><a href="Data.Exo.Object.Scene.html#getScene"><span class="hs-identifier">getScene</span></a></a><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-identifier hs-type">Record</span><span> </span><a href="Data.Exo.Object.Scene.html#SceneR"><span class="hs-identifier hs-type">SceneR</span></a><span> </span><span class="hs-special">}</span><span>
+</span><a name="line-27"></a><span class="hs-identifier hs-var">makeWrapped</span><span> </span><span class="hs-char">''Scene
 
 instance ExoFormat Scene where
   eformat n (Scene r)

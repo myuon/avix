@@ -4,16 +4,26 @@
 </span><a name="line-4"></a><span class="hs-keyword">import</span><span> </span><span class="hs-identifier">Data</span><span class="hs-operator">.</span><span class="hs-identifier">Extensible</span><span>
 </span><a name="line-5"></a><span class="hs-keyword">import</span><span> </span><a href="Data.Exo.ExoFormat.html"><span class="hs-identifier">Data</span><span class="hs-operator">.</span><span class="hs-identifier">Exo</span><span class="hs-operator">.</span><span class="hs-identifier">ExoFormat</span></a><span>
 </span><a name="line-6"></a><span>
-</span><a name="line-7"></a><span class="hs-keyword">type</span><span> </span><a name="MovieR"><a href="Data.Exo.Object.Movie.html#MovieR"><span class="hs-identifier">MovieR</span></a></a><span> </span><span class="hs-glyph">=</span><span>
-</span><a name="line-8"></a><span>  </span><span class="hs-special">[</span><span> </span><span class="hs-string">&quot;_&#20877;&#29983;&#20301;&#32622;&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Double</span><span>
-</span><a name="line-9"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;_&#20877;&#29983;&#36895;&#24230;&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Double</span><span>
-</span><a name="line-10"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;_&#12523;&#12540;&#12503;&#20877;&#29983;&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Bool</span><span>
-</span><a name="line-11"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;_&#12450;&#12523;&#12501;&#12449;&#12481;&#12515;&#12531;&#12493;&#12523;&#12434;&#35501;&#12415;&#36796;&#12416;&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Bool</span><span>
-</span><a name="line-12"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;file&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">FilePath</span><span>
-</span><a name="line-13"></a><span>  </span><span class="hs-special">]</span><span>
-</span><a name="line-14"></a><span>
-</span><a name="line-15"></a><span class="hs-keyword">newtype</span><span> </span><a name="Movie"><a href="Data.Exo.Object.Movie.html#Movie"><span class="hs-identifier">Movie</span></a></a><span> </span><span class="hs-glyph">=</span><span> </span><a name="Movie"><a href="Data.Exo.Object.Movie.html#Movie"><span class="hs-identifier">Movie</span></a></a><span> </span><span class="hs-special">{</span><span> </span><a name="getMovie"><a href="Data.Exo.Object.Movie.html#getMovie"><span class="hs-identifier">getMovie</span></a></a><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-identifier hs-type">Record</span><span> </span><a href="Data.Exo.Object.Movie.html#MovieR"><span class="hs-identifier hs-type">MovieR</span></a><span> </span><span class="hs-special">}</span><span>
-</span><a name="line-16"></a><span class="hs-identifier hs-var">makeWrapped</span><span> </span><span class="hs-char">''Movie
+</span><a name="line-7"></a><span class="hs-comment">-- |</span><span>
+</span><a name="line-8"></a><span class="hs-comment">-- @</span><span>
+</span><a name="line-9"></a><span class="hs-comment">-- type MovieR =</span><span>
+</span><a name="line-10"></a><span class="hs-comment">--   [ &quot;_&#20877;&#29983;&#20301;&#32622;&quot; &gt;: Double</span><span>
+</span><a name="line-11"></a><span class="hs-comment">--   , &quot;_&#20877;&#29983;&#36895;&#24230;&quot; &gt;: Double</span><span>
+</span><a name="line-12"></a><span class="hs-comment">--   , &quot;_&#12523;&#12540;&#12503;&#20877;&#29983;&quot; &gt;: Bool</span><span>
+</span><a name="line-13"></a><span class="hs-comment">--   , &quot;_&#12450;&#12523;&#12501;&#12449;&#12481;&#12515;&#12531;&#12493;&#12523;&#12434;&#35501;&#12415;&#36796;&#12416;&quot; &gt;: Bool</span><span>
+</span><a name="line-14"></a><span class="hs-comment">--   , &quot;file&quot; &gt;: FilePath</span><span>
+</span><a name="line-15"></a><span class="hs-comment">--   ]</span><span>
+</span><a name="line-16"></a><span class="hs-comment">-- @</span><span>
+</span><a name="line-17"></a><span class="hs-keyword">type</span><span> </span><a name="MovieR"><a href="Data.Exo.Object.Movie.html#MovieR"><span class="hs-identifier">MovieR</span></a></a><span> </span><span class="hs-glyph">=</span><span>
+</span><a name="line-18"></a><span>  </span><span class="hs-special">[</span><span> </span><span class="hs-string">&quot;_&#20877;&#29983;&#20301;&#32622;&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Double</span><span>
+</span><a name="line-19"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;_&#20877;&#29983;&#36895;&#24230;&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Double</span><span>
+</span><a name="line-20"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;_&#12523;&#12540;&#12503;&#20877;&#29983;&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Bool</span><span>
+</span><a name="line-21"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;_&#12450;&#12523;&#12501;&#12449;&#12481;&#12515;&#12531;&#12493;&#12523;&#12434;&#35501;&#12415;&#36796;&#12416;&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">Bool</span><span>
+</span><a name="line-22"></a><span>  </span><span class="hs-special">,</span><span> </span><span class="hs-string">&quot;file&quot;</span><span> </span><span class="hs-operator">&gt;:</span><span> </span><span class="hs-identifier hs-type">FilePath</span><span>
+</span><a name="line-23"></a><span>  </span><span class="hs-special">]</span><span>
+</span><a name="line-24"></a><span>
+</span><a name="line-25"></a><span class="hs-keyword">newtype</span><span> </span><a name="Movie"><a href="Data.Exo.Object.Movie.html#Movie"><span class="hs-identifier">Movie</span></a></a><span> </span><span class="hs-glyph">=</span><span> </span><a name="Movie"><a href="Data.Exo.Object.Movie.html#Movie"><span class="hs-identifier">Movie</span></a></a><span> </span><span class="hs-special">{</span><span> </span><a name="getMovie"><a href="Data.Exo.Object.Movie.html#getMovie"><span class="hs-identifier">getMovie</span></a></a><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-identifier hs-type">Record</span><span> </span><a href="Data.Exo.Object.Movie.html#MovieR"><span class="hs-identifier hs-type">MovieR</span></a><span> </span><span class="hs-special">}</span><span>
+</span><a name="line-26"></a><span class="hs-identifier hs-var">makeWrapped</span><span> </span><span class="hs-char">''Movie
 
 instance ExoFormat Movie where
   eformat n (Movie r)

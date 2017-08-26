@@ -4,6 +4,16 @@ import Control.Lens
 import Data.Extensible
 import Data.Exo.ExoFormat
 
+-- |
+-- @
+-- type SoundR =
+--   [ "_再生位置" >: Double
+--   , "_再生速度" >: Double
+--   , "_ループ再生" >: Bool
+--   , "_動画ファイルと連携" >: Bool
+--   , "file" >: FilePath
+--   ]
+-- @
 type SoundR =
   [ "_再生位置" >: Double
   , "_再生速度" >: Double

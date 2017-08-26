@@ -5,6 +5,32 @@ import Data.Extensible
 import Data.Exo.Types
 import Data.Exo.ExoFormat
 
+-- |
+-- @
+-- type ParticleOutputR =
+--   [ "_X" >: Double
+--   , "_Y" >: Double
+--   , "_Z" >: Double
+--   , "_出力頻度" >: Double
+--   , "_出力速度" >: Double
+--   , "_加速度" >: Double
+--   , "_出力方向" >: Double
+--   , "_拡散角度" >: Double
+--   , "_透過率" >: Double
+--   , "_透過速度" >: Double
+--   , "_拡大率" >: Double
+--   , "_拡大速度" >: Double
+--   , "_回転角" >: Double
+--   , "_回転速度" >: Double
+--   , "_重力" >: Double
+--   , "_生存時間" >: Double
+--   , "_出力方向の基準を移動方向にする" >: Bool
+--   , "_移動範囲の座標からランダムに出力" >: Bool
+--   , "_3Dランダム回転" >: Bool
+--   , "_終了点で全て消えるように調整する" >: Bool
+--   , "blend" >: BlendMode
+--   ]
+-- @
 type ParticleOutputR =
   [ "_X" >: Double
   , "_Y" >: Double

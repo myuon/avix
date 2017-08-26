@@ -6,6 +6,17 @@ import Data.Exo.ExoFormat
 import Data.Exo.Types
 import qualified Data.Text.Lazy as T
 
+-- |
+-- @
+-- type FigureR =
+--   [ "_サイズ" >: Int
+--   , "_縦横比" >: Double
+--   , "_ライン幅" >: Double
+--   , "_type" >: Int
+--   , "color" >: RGB
+--   , "name" >: T.Text
+--   ]
+-- @
 type FigureR =
   [ "_サイズ" >: Int
   , "_縦横比" >: Double

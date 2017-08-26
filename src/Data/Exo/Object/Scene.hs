@@ -7,6 +7,15 @@ import Data.Exo.ExoFormat
 import GHC.OverloadedLabels
 import GHC.Prim
 
+-- |
+-- @
+-- type SceneR =
+--   [ "_再生位置" >: Int
+--   , "_再生速度" >: Double
+--   , "_ループ再生" >: Bool
+--   , "(null)" >: Int  -- シーン
+--   ]
+-- @
 type SceneR =
   [ "_再生位置" >: Int
   , "_再生速度" >: Double
