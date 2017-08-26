@@ -44,7 +44,5 @@ ghc-options:
 - -Wunused-imports
 - -Wunused-local-binds
 
-executables:
-  avix:
-    source-dirs:      src
-    main:             Main.hs
+library:
+  source-dirs:      src
